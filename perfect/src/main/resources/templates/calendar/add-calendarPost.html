@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="POST" action="#" th:action="@{/add-calendarPost}"  th:object="${calendarPost}" id="registerForm">
+
+  <input type="text" th:field="*{text}" id="text" placeholder="Укажите Ваш text"/><br/>
+
+    <input type="date" th:field="*{dateDeleteString}" id="dateDeleteString" placeholder="Укажите дату"/><br/>
+
+    <label>Photos: </label>
+
+    <input type="file" name="image" accept="image/png, image/jpeg" multiple /><br/>
+
+  <input type="submit" value="Create"/>
+</form>
+<a th:href="@{/menu}">Выбрать блюда</a>
+</body>
+</html>

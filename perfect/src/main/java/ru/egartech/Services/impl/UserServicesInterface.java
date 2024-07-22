@@ -1,4 +1,4 @@
-package ru.egartech.Services;
+package ru.egartech.Services.impl;
 
 import ru.egartech.models.User;
 import org.springframework.security.core.userdetails.UserDetailsService;

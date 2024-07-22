@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="#" th:action="@{/giveTaskPost}"  th:object="${task}">
+
+  <input type="text" th:field="*{text}" id="text" placeholder="Text"/><br/>
+
+  <input type="text" th:field="*{scoreTask}" id="scoreTask" placeholder="ScoreTask"/><br/>
+
+  <input type="date" th:field="*{dateDeleteString}" id="dateDeleteString" placeholder="Укажите дату"/><br/>
+
+
+
+    <select class="form-control"  id="operator" name="operator">
+        <option value="0">select operator</option>
+        <option th:each="operator : ${list}"
+                id="login"
+                th:value="${operator.login}"
+                th:text="${operator.login}"
+                th:name="operator.login">
+        </option>
+    </select>
+
+    <input  id="login-button" type="submit" value="Добавить"/>
+</form>
+</body>
+</html>

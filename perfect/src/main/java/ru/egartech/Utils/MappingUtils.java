@@ -1,4 +1,4 @@
-package ru.egartech.Services;
+package ru.egartech.Utils;
 
 import org.springframework.stereotype.Service;
 import ru.egartech.Dto.UserDto;

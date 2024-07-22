@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <div th:each="user : ${list}">
+        <a style="display: inline-block" class="book-name" th:text="${user.login}" th:href="@{/user/{id}(id=${user.id})}"></a>
+        <a style="display: inline-block" class="book-text" th:text="${user.id}" ></a>
+        <a th:href="@{/giveTask/{login}(login=${user.login})}">Задача</a>
+    </div>
+</div>
+
+</body>
+</html>

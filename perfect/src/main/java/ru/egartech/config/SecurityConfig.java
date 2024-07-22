@@ -1,5 +1,16 @@
 package ru.egartech.config;
 
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import ru.egartech.Services.impl.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,10 +31,15 @@ public class SecurityConfig {
     @Autowired
     private UserServices userServices;
     @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserServices();
+    }
+    @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userServices);
+        authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
+
         return authProvider;
     }
 
@@ -39,15 +55,37 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable())
-                .formLogin((form) -> form
-                        .defaultSuccessUrl("/login"))
+        http.csrf(AbstractHttpConfigurer::disable)
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/users").permitAll()
-                        .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults());
+                        .requestMatchers("/test","users", "/lenta","/*").permitAll()
+                        .requestMatchers("/news/update-post").hasAnyAuthority("HR")
+                        .anyRequest().authenticated()
+                )
+                .formLogin((form) -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/processLogin")
+                        .usernameParameter("login")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/lenta")
+                        .permitAll()
+                )
+                .logout((logout) -> logout
+                        .logoutUrl("/user/logout")
+                        .logoutSuccessUrl("/news")
+                );
 
         return http.build();
+    }
+    @Autowired
+    protected void registerProvider(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userServices).passwordEncoder(passwordEncoder());
+    }
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new DelegatingSecurityContextRepository(
+                new RequestAttributeSecurityContextRepository(),
+                new HttpSessionSecurityContextRepository()
+        );
     }
 }

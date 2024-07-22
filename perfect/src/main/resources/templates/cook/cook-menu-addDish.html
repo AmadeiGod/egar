@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="#" th:action="@{/add-dish}"  th:object="${dish}">
+
+  <input type="text" th:field="*{name}" id="name" placeholder="Укажите название блюда"/><br/>
+
+  <input type="text" th:field="*{count}" id="count" placeholder="Кол-во блюд"/><br/>
+
+
+  <input  id="login-button" type="submit" value="Добавить"/>
+
+    <a href="/all-menu">Посмотреть все меню</a>
+</form>
+</body>
+</html>

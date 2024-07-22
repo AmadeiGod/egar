@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="dish : ${list}">
+  <a style="display: inline-block" th:text="${dish.name}" ></a>
+  <p style="display: inline-block" th:text="${dish.count}"></p>
+</div>
+
+<a th:href="@{/cook-menu-addDish}"> Добавить блюдо</a>
+<a th:href="@{/all-menu-update}"> Изменить меню</a>
+</body>
+</html>

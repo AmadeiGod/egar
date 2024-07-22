@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="#" th:action="@{/chief-check-task-send-and-com/add-com}"  th:object="${task}">
+
+    <input type="text" th:field="*{text}" id="text" placeholder="Text"/><br/>
+
+    <input  type="submit" value="Добавить"/>
+</form>
+</body>
+</html>

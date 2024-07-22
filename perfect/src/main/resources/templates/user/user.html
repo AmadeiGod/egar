@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="user : ${user}">
+    <a style="display: inline-block" class="book-name" th:text="${user.login}" th:href="@{/user/{id}(id=${user.id})}"></a>
+    <p style="display: inline-block" class="book-text" th:text="${user.year}"></p>
+</div>
+<div th:each="task : ${task1}">
+    <a style="display: inline-block" class="book-name" th:text="${task.text}" ></a>
+    <p style="display: inline-block" class="book-text" th:text="${task.scoreTask}"></p>
+    <a th:href="@{/user-send-task/{id}(id=${task.id})}">Задача решена</a>
+</div>
+<div style="border: 1px solid brown; display: inline-block" th:each="task : ${taskSolve}">ПРоверить задачи<br>
+    <a style="display: inline-block" class="book-name" th:text="${task.text}" ></a>
+    <p style="display: inline-block" class="book-text" th:text="${task.scoreTask}"></p><br>
+
+    <a th:href="@{/chief-check-task/{id}(id=${task.id})}">Задача решена и проверена</a><br>
+    <a th:href="@{/chief-check-task-send/{id}(id=${task.id})}">Отправить обратно на доработку</a><br>
+    <form id="add" th:action="@{/chief-check-task-send-and-com/{id}(id=${task.id})}" method="post" th:object="${task}">
+        <input id="id" th:field="*{text}" th:name = "${text}" type="text"/>
+        <button type="submit" value="save">Отправить обратно на доработку и Добавить комментарий</button>
+    </form>
+</div>
+
+</body>
+</html>
