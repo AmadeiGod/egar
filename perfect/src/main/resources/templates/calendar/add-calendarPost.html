@@ -7,16 +7,26 @@
 <body>
 <form method="POST" action="#" th:action="@{/add-calendarPost}"  th:object="${calendarPost}" id="registerForm">
 
-  <input type="text" th:field="*{text}" id="text" placeholder="Укажите Ваш text"/><br/>
+    <input type="text" th:field="*{text}" id="text" placeholder="Укажите Ваш text"/><br/>
 
     <input type="date" th:field="*{dateDeleteString}" id="dateDeleteString" placeholder="Укажите дату"/><br/>
 
     <label>Photos: </label>
 
     <input type="file" name="image" accept="image/png, image/jpeg" multiple /><br/>
+    <input type="submit" value="Создать"/>
+    <a id="a" >Выбрать блюда</a>
+    <div id="div">
+        <form th:object="${form}" method="post" action="#" th:action="@{/all-menu-update-post}">
+            <tr th:each="task, itemStat : *{listDish}">
+                <td><input th:field="*{listDish[__${itemStat.index}__].name}" /></td>
+                <td><input th:field="*{listDish[__${itemStat.index}__].count}" /></td><br>
 
-  <input type="submit" value="Create"/>
+            </tr>
+        </form>
+    </div>
+
 </form>
-<a th:href="@{/menu}">Выбрать блюда</a>
+
 </body>
 </html>

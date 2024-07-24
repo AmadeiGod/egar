@@ -32,19 +32,7 @@ public class MenuController {
     public UserRepository userRepository;
     @Autowired
     public CalendarPostRepository calendarPostRepository;
-    @PostMapping("/add-menu-to-post")
-    public String menu(@ModelAttribute Menu form, Authentication authentication, HttpServletRequest request ){
-        authentication = (Authentication) request.getUserPrincipal();
-        var userDetails = (UserDetails) authentication.getPrincipal();
-        Optional<User> user = userRepository.findByPassword(userDetails.getPassword());
-        System.out.println(form);
-        form.setCalendarPost(calendarPostRepository.findByUserId(user.get().getId()).get());
-        Menu menu = new Menu();
-        menu.setCalendarPost(calendarPostRepository.findByUserId(user.get().getId()).get());
-        menu.setListDish(form.getListDish());
-        menuRepository.save(menu);
-        return "calendar/menu";
-    }
+
     @PostMapping("/add-menu-user")
     public String addMenuUser(@ModelAttribute Menu form){
 

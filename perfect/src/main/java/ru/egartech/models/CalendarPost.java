@@ -22,7 +22,7 @@ public class CalendarPost {
     private Date dateDelete;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Menu menu;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> listVisitUser = new ArrayList<>();

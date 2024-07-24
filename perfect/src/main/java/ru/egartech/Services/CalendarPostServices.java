@@ -21,7 +21,7 @@ public class CalendarPostServices {
     public CalendarPostRepository calendarPostRepository;
     @Autowired
     public UserServices userServices;
-    public void addCalendarPost(CalendarPost calendarPost, User user) throws ParseException {
+    public CalendarPost addCalendarPost(CalendarPost calendarPost, User user, Menu menu) throws ParseException {
         CalendarPost calendarPost1 = new CalendarPost();
         Date date = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -31,7 +31,9 @@ public class CalendarPostServices {
         calendarPost1.setDateDeleteString(calendarPost.getDateDeleteString());
         calendarPost1.setDateDelete(formatter.parse(calendarPost.getDateDeleteString()));
         calendarPost1.setUser(user);
+        calendarPost1.setMenu(menu);
         calendarPostRepository.save(calendarPost1);
+        return calendarPost1;
     }
     public void addUserToCalendarPost(User user, CalendarPost calendarPost) throws Exception{
         try {

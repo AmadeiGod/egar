@@ -14,8 +14,6 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CalendarPost calendarPost;
     @OneToMany
     private List<Dish> listDish = new ArrayList<>();
 

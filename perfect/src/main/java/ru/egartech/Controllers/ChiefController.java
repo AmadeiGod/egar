@@ -47,7 +47,7 @@ public class ChiefController {
         task.get().setCheckChief(true);
         taskRepository.save(task.get());
         User user = task.get().getUserAccept();
-        user.setTaskRaiting((user.getTaskRaiting() + task.get().getScoreTask())/user.getCountTask());
+
         userRepository.save(user);
         return "user/user";
     }

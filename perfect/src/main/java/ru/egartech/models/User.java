@@ -25,16 +25,7 @@ public class User {
     private int year;
     private String name;
     private String surname;
-    private double taskRaiting;
-    private int countTask = 1;
-    @OneToMany
-    private List<Message> messageList;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CalendarPost> calendarPostList = new ArrayList<>();
-    @OneToMany
-    private List<Task> taskList;
-    @Basic
-    @Convert( converter = CommaDelimitedStringsConverter.class )
-    private List<String> list = new ArrayList<>();
 
-}
+
+
+};
