@@ -7,8 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ru.egartech.Dto.DtoTask;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Repository.UserRepository;
 import ru.egartech.Services.TaskServices;
@@ -31,7 +29,7 @@ public class ChiefController {
     @Autowired
     public TaskRepository taskRepository;
     @PostMapping("/giveTaskPost")
-    public String giveTaskPost(@ModelAttribute Task task, @Valid String operator, Authentication authentication, HttpServletRequest request) throws ParseException {
+    public String giveTaskPost(@Valid @ModelAttribute Task task, @Valid String operator, Authentication authentication, HttpServletRequest request) throws ParseException {
         taskServices.createTask(task, userServices.userAuth(authentication,request), operator);
         return "main/lenta";
     }
@@ -49,21 +47,21 @@ public class ChiefController {
         User user = task.get().getUserAccept();
 
         userRepository.save(user);
-        return "user/user";
+        return "redirect:user";
     }
     @GetMapping("/chief-check-task-send/{id}")
     public String ChiefCheckTaskSend(@PathVariable("id") long id){
         Optional<Task> task  = taskRepository.findById(id);
         task.get().setSolve(false);
         taskRepository.save(task.get());
-        return "main/lenta";
+        return "redirect:user";
     }
     @PostMapping("/chief-check-task-send-and-com/{id}")
-    public String ChiefCheckTaskSendAndCom(@PathVariable("id") long id, Task task, HttpServletRequest request){
+    public String ChiefCheckTaskSendAndCom(@Valid @PathVariable("id") long id, Task task, HttpServletRequest request){
         Optional<Task> task1 = taskRepository.findById(id);
         task1.get().setText(task1.get().getText() + task.getText());
         task1.get().setSolve(false);
         taskRepository.save(task1.get());
-        return "user/user";
+        return "redirect:user";
     }
 }

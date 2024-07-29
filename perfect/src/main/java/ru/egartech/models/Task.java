@@ -1,6 +1,9 @@
 package ru.egartech.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.boot.convert.DataSizeUnit;
 
@@ -12,9 +15,11 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String text;
     private boolean solve = false;
     private boolean checkChief = false;
+    @NotNull
     private int scoreTask;
     private String dateDeleteString;
     private Date timeToSolve;

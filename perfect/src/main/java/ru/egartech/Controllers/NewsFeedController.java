@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +35,7 @@ public class NewsFeedController {
 
 
     @PostMapping("/add-post")
-    public String add_post(CalendarPost calendarPost){
+    public String add_post(@Valid CalendarPost calendarPost){
         postRepository.save(calendarPost);
         return "news/news";
     }
@@ -51,7 +52,7 @@ public class NewsFeedController {
         return "news/update-post";
     }
     @PostMapping("/update-post/{id}")
-    public String update_post(CalendarPost calendarPost){
+    public String update_post(@Valid CalendarPost calendarPost){
         postRepository.save(calendarPost);
         return "redirect:news/news";
     }

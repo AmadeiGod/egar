@@ -4,35 +4,30 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import ru.egartech.Conventer.CommaDelimitedStringsConverter;
+import ru.egartech.models.Menu;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Entity
 @Data
-@Table(name = "user_entity")
-public class User {
+@Entity
+public class SendDish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private String login;
-    @NotNull
-    private String password;
-    private String email;
-    private String role;
-    private Date dateRegistration;
-    private Date dateUpdate;
-    private int year;
+    @Size(max = 100)
     private String name;
-    private String surname;
-
+    private int count;
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Menu menu;
+    private String type;
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    private User user;
+    private boolean serviced;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CalendarPost calendarPost;
+}
 
-
-
-};

@@ -8,7 +8,18 @@
 <div th:each="calendarPost : ${list}">
     <a style="display: inline-block" th:text="${calendarPost.text}" th:href="@{/calendarPost/{id}(id=${calendarPost.id})}"></a>
     <p style="display: inline-block" th:text="${calendarPost.dateDeleteString}"></p>
-    <a th:href="@{/calendarPostAddUser/{id}(id=${calendarPost.id})}" >Я приму участие</a>
+    <form method="POST" action="#" th:action="@{/calendarPostAddUser/{id}(id=${calendarPost.id})}" id="registerForm">
+        <input type="submit" value="Я приму участие"/>
+        <p>Выбрать блюда</p>
+        <div id="div">
+            <form th:object="${form}" method="post" action="#" th:action="@{/all-menu-update-post}">
+                <tr th:each="task, itemStat : *{listDish}">
+                    <td><input th:field="*{listDish[__${itemStat.index}__].name}" /></td>
+                    <td><input th:field="*{listDish[__${itemStat.index}__].count}" /></td><br>
+                </tr>
+            </form>
+        </div>
+    </form>
 </div>
 </body>
 </html>

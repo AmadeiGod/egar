@@ -15,7 +15,7 @@
 
     <input type="file" name="image" accept="image/png, image/jpeg" multiple /><br/>
     <input type="submit" value="Создать"/>
-    <a id="a" >Выбрать блюда</a>
+    <p>Выбрать блюда</p>
     <div id="div">
         <form th:object="${form}" method="post" action="#" th:action="@{/all-menu-update-post}">
             <tr th:each="task, itemStat : *{listDish}">

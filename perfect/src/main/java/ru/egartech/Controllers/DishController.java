@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,19 +20,9 @@ public class DishController {
         return "cook/cook-menu-addDish";
     }
     @PostMapping("/add-dish")
-    public String addDish(Dish dish){
+    public String addDish(@Valid Dish dish){
         dishRepository.save(dish);
         return "cook/cook-menu-addDish";
-    }
-    @GetMapping("/cook-menu")
-    public String cookMenu(){
-        return "cook";
-    }
-    @GetMapping("/dish")
-    public String dish(Model model){
-        List<Dish> list = dishRepository.findAll();
-        model.addAttribute("list", list);
-        return "cook/dish";
     }
 }
 

@@ -32,23 +32,6 @@ public class MenuController {
     public UserRepository userRepository;
     @Autowired
     public CalendarPostRepository calendarPostRepository;
-
-    @PostMapping("/add-menu-user")
-    public String addMenuUser(@ModelAttribute Menu form){
-
-        return "main/lenta";
-    }
-    @GetMapping("/menu-cook")
-    public String menuCook(Dish dish){
-        return "cook";
-    }
-    @GetMapping("calendar/menu")
-    public String menuCookd(Dish dish, Model model){
-        Menu menu = new Menu();
-        menu.setListDish(dishRepository.findAll());
-        model.addAttribute("form", menu);
-        return "calendar/menu";
-    }
     @GetMapping("/all-menu")
     public String all_menu(Model model){
         List<Dish> list = dishRepository.findAll();
@@ -63,10 +46,10 @@ public class MenuController {
         return "cook/all-menu-update";
     }
     @PostMapping("/all-menu-update-post")
-    public String all_menuupdatepost(@ModelAttribute Menu form){
+    public String all_menuUpdatePost(@ModelAttribute Menu form){
         List<Dish> list = form.getListDish();
         dishRepository.deleteAll();
-        list.stream().forEach(e -> {
+        list.forEach(e -> {
             if (e.getCount() != 0){
                 dishRepository.save(e);
             }

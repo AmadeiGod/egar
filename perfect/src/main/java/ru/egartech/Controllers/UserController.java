@@ -46,6 +46,7 @@ public class UserController {
         model.addAttribute("user", user.get());
         model.addAttribute("task1", taskRepository.findByUserAcceptAndSolve(user.get(),false));
         model.addAttribute("taskSolve", taskRepository.findByUserSendAndSolve(user.get(), true));
+
         return "user/user";
     }
     @GetMapping("/user-send-task/{id}")
@@ -53,19 +54,6 @@ public class UserController {
         Optional<Task> task = taskRepository.findById(id);
         task.get().setSolve(true);
         taskRepository.save(task.get());
-        return "redirect:user/user";
+        return "redirect:user";
     }
-
-    @GetMapping("/test/{id}")
-    public String test(@RequestParam(value = "participant", required = false) String participant,
-                       @RequestParam(value = "text", required = false) String text,
-                       @PathVariable Long id){
-        System.out.println(participant);
-        System.out.println(text);
-        System.out.println(id);
-        return "test";
-    }
-
-
-
 }

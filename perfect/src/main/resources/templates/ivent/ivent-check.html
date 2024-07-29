@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:object="${dtoMenuUser}" method="post" action="#" th:action="@{/ivent-order}">
+    <tr th:each="task, itemStat : *{cal}">
+        <br><br>Ивент
+        <p style="display: inline-block"  th:utext="*{cal[__${itemStat.index}__].text}"></p>
+        <td><input style="display: none" th:field="*{cal[__${itemStat.index}__].text}" /></td> <br>Участники
+        <tr th:each="task, itemStat : *{names}">
+            <div>
+                <p style="display: inline-block"  th:utext="*{names[__${itemStat.index}__].login}"></p>
+                <input style="display: none" th:field="*{names[__${itemStat.index}__].login}" />
+                <input style="display: inline-block" type="checkbox" th:field="*{names[__${itemStat.index}__].check}" />
+            </div>
+        </tr>
+    </tr>
+    <input type="submit" value="Заказать"/>
+</form>
+
+</body>
+</html>
