@@ -23,9 +23,12 @@ Endpoint:
 ALL:
 
 URL: /auth/login
+
+
 Метод: Get
 Доступно всем
 Описание: Страница входа
+
 
 URL: /registration
 Метод: Get
