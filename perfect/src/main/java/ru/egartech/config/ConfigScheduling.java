@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Services.EmailSenderService;
 import ru.egartech.Services.impl.UserServices;
@@ -28,7 +29,9 @@ public class ConfigScheduling {
     public UserServices userServices;
     @Autowired
     public EmailSenderService emailSenderService;
-
+    @Autowired
+    public CalendarPostRepository calendarPostRepository;
+/*
 
     public User req( Authentication authentication,HttpServletRequest request){
         return  userServices.userAuth(authentication,request);
@@ -49,4 +52,27 @@ public class ConfigScheduling {
             Thread.sleep(86400000); // 1 день
         }
     }
+    @Scheduled(fixedDelay = 1000)
+    public void emailSendCalendarPost() throws InterruptedException, AddressException {
+        while (true){
+            Date date = new Date();
+            calendarPostRepository.findAll().stream().filter(
+                    e ->( date.getTime() - e.getDateDelete().getTime()) < 86400000).forEach(e->
+            {
+                try {
+                    e.getListVisitUser().forEach(k ->
+                    {
+                        try {
+                            emailSenderService.sendEmailCalendarPost(k);
+                        } catch (AddressException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
+                } finally {
+
+                }
+            });
+            Thread.sleep(86400000); // 1 день
+        }
+    }*/
 }

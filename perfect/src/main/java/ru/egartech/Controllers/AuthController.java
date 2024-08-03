@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,7 @@ public class AuthController {
         model.addAttribute("user", regDto);
         return "auth/registration";}
     @PostMapping("/registration")
-    public String registerUserAccount(RegDto registrationDto) {
+    public String registerUserAccount(@Valid RegDto registrationDto) {
 
         if (userRepository.existsByLogin(registrationDto.getLogin())) {
             System.out.println("Такой логин уже есть");

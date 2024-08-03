@@ -18,5 +18,5 @@ public interface SendDishRepository extends JpaRepository<SendDish, Long> {
     Optional<SendDish> findByNameAndType(String name, String type);
     Optional<SendDish> findByNameAndTypeAndCalendarPost(String name, String type, CalendarPost calendarPost);
     List<SendDish> findByUser(User user);
-
+    List<SendDish> findByUserAndMenuAndAndCalendarPost(User user, Menu menu, CalendarPost calendarPost);
 }

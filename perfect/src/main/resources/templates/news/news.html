@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-123
+<div th:each="new : ${list_News}">
+    <p th:text="${new.text}"></p>
+    <p th:text="${new.dateCreate}"></p>
+</div>
+<a th:href="@{/news/add-new}">Добавить новость</a>
 </body>
 </html>

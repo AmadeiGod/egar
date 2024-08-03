@@ -44,8 +44,18 @@ public class UserController {
         var userDetails = (UserDetails) authentication.getPrincipal();
         Optional<User> user = userRepository.findByPassword(userDetails.getPassword());
         model.addAttribute("user", user.get());
-        model.addAttribute("task1", taskRepository.findByUserAcceptAndSolve(user.get(),false));
-        model.addAttribute("taskSolve", taskRepository.findByUserSendAndSolve(user.get(), true));
+        model.addAttribute("taskForUser", taskRepository.findByUserAcceptAndSolve(user.get(),false));
+        model.addAttribute("taskSolveAndCheckNo", taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, false));
+        model.addAttribute("taskSolveAndCheckYes", taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, true));
+        List<Task> taskList = taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, true);
+
+
+        int sum = 0;
+        for(int i = 0; i < taskList.size(); i++){
+            sum += taskList.get(i).getScoreTask();
+        }
+        int scoreUser = sum/taskList.size();
+        model.addAttribute("scoreUser", scoreUser);
 
         return "user/user";
     }

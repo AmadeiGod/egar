@@ -18,18 +18,20 @@ public class CalendarPost {
     private Long id;
     @NotBlank
     @Size(min = 5, max = 100)
-    private String text;
-    @NotNull
+    public String text;
+    public Date dateCreate;
+    public Date dateDelete;
     private String dateDeleteString;
     @OneToMany
     private List<Image> listImages = new ArrayList<>();
-    private Date dateCreate;
-    private Date dateDelete;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Menu menu;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> listVisitUser = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<User> listForCheckUser = new ArrayList<>();
+
 
 }

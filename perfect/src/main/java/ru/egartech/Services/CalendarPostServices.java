@@ -28,6 +28,7 @@ public class CalendarPostServices {
         CalendarPost calendarPost1 = new CalendarPost();
         Date date = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Post post = new Post();
         calendarPost1.setId(calendarPost.getId());
         calendarPost1.setText(calendarPost.getText());
         calendarPost1.setDateCreate(date);
@@ -35,6 +36,7 @@ public class CalendarPostServices {
         calendarPost1.setDateDelete(formatter.parse(calendarPost.getDateDeleteString()));
         calendarPost1.setUser(user);
         calendarPost1.setMenu(menu);
+
         calendarPostRepository.save(calendarPost1);
         return calendarPost1;
     }
@@ -60,21 +62,15 @@ public class CalendarPostServices {
             if(dish.getCount() > 3){  // максимум у человека может быть 3 блюда одной позиции
                 return false;
             }
-            for( int e = 0; e < form.getListDish().size(); e++){
-                if (Objects.equals(form.getListDish().get(e).getName(),
-                        calendarPost.getMenu().getListSendDish().get(i).getName())){
-                    if(form.getListDish().get(e).getCount()
-                            > calendarPost.getMenu().getListSendDish().get(i).getCount()){
-                        return false; // проверка на точное выбранное количество блюд у пользователя
-                    }
-                }
-            }
+
         }
         return true;
     }
     public void reverse_dish_and_save(Dish dish, CalendarPost calendarPost, User user){
         SendDish sendDish = sendDishRepository.findByNameAndUserAndMenu(dish.getName(), user, calendarPost.getMenu()).get();
-        SendDish sendDish1 = sendDishRepository.findByNameAndTypeAndCalendarPost(sendDish.getName(), "Заготовка", calendarPost).get();
+        SendDish sendDish1 = sendDishRepository.findByNameAndTypeAndCalendarPost(
+                sendDish.getName(), "Заготовка", calendarPost).get();
+
         int g = sendDish.getCount();
         sendDish.setCount(dish.getCount());
         sendDishRepository.save(sendDish);
@@ -91,4 +87,5 @@ public class CalendarPostServices {
         }
         return true;
     }
+
 }

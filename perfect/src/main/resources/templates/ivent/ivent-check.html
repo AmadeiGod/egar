@@ -5,22 +5,31 @@
     <title>Title</title>
 </head>
 <body>
+<div><!--
+    <tr th:each="task, itemStat : *{dtoMenuUser.cal}">
+        <form th:object="${dtoMenuUser}" method="post" action="#" th:action="@{/ivent-order/{id}(id=${dtoMenuUser.id})}">
+            <br><br>Ивент
+            <p style="display: inline-block"  th:utext="*{cal[__${itemStat.index}__].text}"></p>
+            <td><input style="display: none" th:field="*{cal[__${itemStat.index}__].text}" /></td>
+            <br>Участники
+            <tr th:each="task, itemStat : *{names}">
+                <div>
+                    <p style="display: inline-block"  th:utext="*{names[__${itemStat.index}__].login}"></p>
+                    <input style="display: none" th:field="*{names[__${itemStat.index}__].login}" />
+                    <input style="display: inline-block" type="checkbox" th:field="*{names[__${itemStat.index}__].check}" />
+                </div>
+            </tr>
 
-<form th:object="${dtoMenuUser}" method="post" action="#" th:action="@{/ivent-order}">
-    <tr th:each="task, itemStat : *{cal}">
+            <input type="submit" value="Заказать"/>
+        </form>
+    </tr>-->
+    <div th:each="calendarPost, itemSta : *{list}">
         <br><br>Ивент
-        <p style="display: inline-block"  th:utext="*{cal[__${itemStat.index}__].text}"></p>
-        <td><input style="display: none" th:field="*{cal[__${itemStat.index}__].text}" /></td> <br>Участники
-        <tr th:each="task, itemStat : *{names}">
-            <div>
-                <p style="display: inline-block"  th:utext="*{names[__${itemStat.index}__].login}"></p>
-                <input style="display: none" th:field="*{names[__${itemStat.index}__].login}" />
-                <input style="display: inline-block" type="checkbox" th:field="*{names[__${itemStat.index}__].check}" />
-            </div>
-        </tr>
-    </tr>
-    <input type="submit" value="Заказать"/>
-</form>
+        <a style="display: inline-block" th:text="${calendarPost.text}" th:href="@{/ivent-check/{id}(id=${calendarPost.id})}"></a>
+        <p style="display: inline-block" th:text="${calendarPost.dateDeleteString}"></p>
+
+    </div>
+</div>
 
 </body>
 </html>

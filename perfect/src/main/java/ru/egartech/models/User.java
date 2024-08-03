@@ -1,9 +1,7 @@
 package ru.egartech.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import ru.egartech.Conventer.CommaDelimitedStringsConverter;
 
@@ -18,9 +16,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @NotBlank
+    @Size(min = 5, max = 100)
     private String login;
-    @NotNull
+    @NotBlank
+    @Size(min = 5, max = 100)
     private String password;
     private String email;
     private String role;
@@ -29,10 +29,6 @@ public class User {
     private int year;
     private String name;
     private String surname;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    private Menu menu;
-
-
+    private boolean checkIvent = false;
 
 };

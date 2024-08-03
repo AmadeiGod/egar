@@ -15,4 +15,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByUserAcceptAndSolve(User user, boolean name);
     List<Task> findByUserSendAndSolve(User user, boolean name);
+
+    List<Task> findByUserSendAndSolveAndCheckChief(User user, boolean name, boolean chief);
+
+
 }

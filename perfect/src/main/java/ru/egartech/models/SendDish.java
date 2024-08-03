@@ -20,6 +20,7 @@ public class SendDish {
     @NotNull
     @Size(max = 100)
     private String name;
+    @Min(value = 0)
     private int count;
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Menu menu;

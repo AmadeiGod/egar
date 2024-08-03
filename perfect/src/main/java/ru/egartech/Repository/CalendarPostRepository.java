@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface CalendarPostRepository extends JpaRepository<CalendarPost, Long> {
     Optional<CalendarPost> findByUserId(Long id);
     Optional<List<CalendarPost>> findAllByUser(User user);
+    List<CalendarPost> findAll();
 }

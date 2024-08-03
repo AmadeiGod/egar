@@ -1,13 +1,12 @@
 package ru.egartech.Controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.egartech.Dto.DtoMenuModel;
 import ru.egartech.Dto.DtoMenuUser;
 import ru.egartech.Repository.*;
@@ -36,6 +35,7 @@ public class IventController {
     public MenuRepository menuRepository;
     @Autowired
     public SendDishRepository sendDishRepository;
+
     @GetMapping("/ivent")
     public String ivent(Model model, Authentication authentication, HttpServletRequest request){
         User user = userServices.userAuth(authentication,request);
@@ -45,7 +45,7 @@ public class IventController {
         return "ivent/ivent";
     }
     @GetMapping("/ivent-check")
-    public String ivent_chech(Model model, Authentication authentication, HttpServletRequest request){
+    public String ivent_chech( Model model, Authentication authentication, HttpServletRequest request, CalendarPost accept){
         User user = userServices.userAuth(authentication,request);
         Date date = new Date();
         List<CalendarPost> list = calendarPostRepository.findAllByUser(user).get();
@@ -55,21 +55,43 @@ public class IventController {
             }
         });
         DtoMenuUser dtoMenuUser = new DtoMenuUser();
-        for(int i = 0; i < list.size(); i++){
-            for (int k = 0; k < list.get(i).getListVisitUser().size(); k++){
-                DtoMenuModel dtoMenuModel = new DtoMenuModel();
-                dtoMenuModel.setLogin(list.get(i).getListVisitUser().get(k).getLogin());
-                dtoMenuUser.getNames().add(dtoMenuModel);
-            }
-            dtoMenuUser.getCal().add(list.get(i));
-        }
-        model.addAttribute("dtoMenuUser", dtoMenuUser );
+        dtoMenuUser.setCal(list);
+        model.addAttribute("list", list);
+
         return "ivent/ivent-check";
     }
-    @PostMapping("/ivent-order")
-    public String ivent_order(@ModelAttribute DtoMenuUser dtoMenuUser){
-        System.out.println(dtoMenuUser);
+    @GetMapping("/ivent-check/{id}")
+    public String ivent_orderp(@PathVariable("id") long id,  @ModelAttribute CalendarPost accept, Model model){
+        model.addAttribute("id", id);
+        CalendarPost calendarPost = calendarPostRepository.findById(id).get();
+        model.addAttribute("calendarPost", calendarPost);
+        return "/ivent/sss";
+    }
+    @Transactional
+    @PostMapping("/ivent-check/{id}")
+    public String ivent_orderPost(@PathVariable("id") long id,  @ModelAttribute CalendarPost accept){
+        int i = 0;
+        System.out.println(accept);
+        CalendarPost accept1 = calendarPostRepository.findById(id).get();
+        while (i < accept.getListVisitUser().size()){
+            if(accept.getListVisitUser().get(i).isCheckIvent()){
+                accept.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
+                accept1.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
+                calendarPostRepository.save(accept1);
 
-        return "redirect:ivent-check";
+            }
+            i++;
+        }
+
+        for( int p = 0; p < accept1.getListVisitUser().size(); p++){
+            for(int j = 0; j < accept1.getListForCheckUser().size(); j++){
+                if(accept1.getListVisitUser().get(p) == accept1.getListForCheckUser().get(j)){
+                    accept1.getListVisitUser().remove(userRepository.findByLogin(accept1.getListVisitUser().get(p).getLogin()).get());
+                    calendarPostRepository.save(accept1);
+                }
+            }
+        }
+
+        return "redirect:/ivent-check";
     }
 }

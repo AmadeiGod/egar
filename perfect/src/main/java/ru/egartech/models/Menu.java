@@ -20,6 +20,6 @@ public class Menu {
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private List<SendDish> listSendDish = new ArrayList<>();
     private Date dateCreate;
-    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL,  orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private List<User> userList;
 }

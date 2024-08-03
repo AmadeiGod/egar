@@ -39,4 +39,17 @@ public class EmailSenderService {
             //
         }
     }
+    @Async
+    public void sendEmailCalendarPost(User user) throws AddressException {
+        try{
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Завтра мероприятие");
+            mailMessage.setFrom(String.valueOf(new InternetAddress("daudmammaev@yandex.ru")));
+            mailMessage.setText("Завтра мероприятие");
+            javaMailSender.send(mailMessage);
+        }catch (Exception e){
+            //
+        }
+    }
 }

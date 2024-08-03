@@ -1,6 +1,7 @@
 package ru.egartech.Controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -59,6 +60,7 @@ public class CalendarController {
         model.addAttribute("form", menu);
         return "calendar/add-calendarPost";
     }
+    @Transactional
     @PostMapping("/add-calendarPost")
     public String addPost(@ModelAttribute Menu form, @Valid CalendarPost calendarPost, Authentication authentication, HttpServletRequest request, Model model) throws ParseException {
 
@@ -91,13 +93,21 @@ public class CalendarController {
         menuRepository.save(menu);
         return "redirect:calendar";
     }
+    @Transactional
     @PostMapping("/calendarPostAddUser/{id}")
     public String calendarPostAddUser(@ModelAttribute Menu form, @PathVariable("id") long id, Authentication authentication, HttpServletRequest request){
 
         CalendarPost calendarPost = calendarPostRepository.findById(id).get();
         User user = userServices.userAuth(authentication,request);
+        boolean check = false;
+        for(int i = 0; i < calendarPost.getListVisitUser().size(); i++){ // проверка, пользователь уже участвует на мероприятии?
+            if (calendarPost.getListVisitUser().get(i) == user){
+                check = true;
+            }
+        }
 
-        if(sendDishRepository.findByUser(user).size() == 0){ // проверка на то, заказывал ли юзер до этого меню
+        if(sendDishRepository.findByUserAndMenuAndAndCalendarPost(
+                user, calendarPost.getMenu(), calendarPost).size() == 0){ // проверка на то, заказывал ли юзер до этого меню
             try{
                 if(calendarPostServices.check_menu_for_dish_and_countDish(form, calendarPost)){
 
@@ -105,7 +115,7 @@ public class CalendarController {
                         SendDish sendDish = dishServices.map_dish_to_sendDish_for_guest(form.getListDish().get(i), user, calendarPost);
                         sendDishRepository.save(sendDish);
 
-                        SendDish sendDish1 = sendDishRepository.findByNameAndType(sendDish.getName(), "Заготовка").get();
+                        SendDish sendDish1 = sendDishRepository.findByNameAndTypeAndMenu(sendDish.getName(), "Заготовка", calendarPost.getMenu()).get();
                         sendDish1.setCount(sendDish1.getCount() - sendDish.getCount());
                         sendDishRepository.save(sendDish1);
 
@@ -125,7 +135,7 @@ public class CalendarController {
                         Dish dish = form.getListDish().get(i);
                         calendarPostServices.reverse_dish_and_save(dish,calendarPost,user);
                     }
-                    calendarPostServices.addUserToCalendarPost(user, calendarPost);
+                    calendarPostRepository.save(calendarPost);
                     calendarPost.getMenu().getUserList().add(user);
 
                 }
@@ -135,5 +145,8 @@ public class CalendarController {
         }
 
         return "redirect:/lenta";
-    }
+
+
+        }
+
 }
