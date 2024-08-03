@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.egartech.Dto.UserDto;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Services.impl.UserServices;
 import ru.egartech.models.Task;
@@ -20,6 +21,8 @@ import ru.egartech.Repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static ru.egartech.Utils.MappingUtils.mapToUserDto;
 
 @Controller
 public class UserController {
@@ -34,7 +37,10 @@ public class UserController {
 
     @GetMapping("/users")
     public String all_users(Model model) throws InterruptedException {
-        List<User> list = userRepository.findAll();
+        List<UserDto> list = new ArrayList<>();
+        userRepository.findAll().forEach(
+                e -> list.add(mapToUserDto(e))
+        );
         model.addAttribute("list", list);
         return "user/users";
     }

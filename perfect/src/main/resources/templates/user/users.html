@@ -7,9 +7,8 @@
 <body>
 <div>
     <div th:each="user : ${list}">
-        <a style="display: inline-block" class="book-name" th:text="${user.login}" th:href="@{/user/{id}(id=${user.id})}"></a>
-        <a style="display: inline-block" class="book-text" th:text="${user.id}" ></a>
-        <a th:href="@{/giveTask/{login}(login=${user.login})}">Задача</a>
+        <a style="display: inline-block" class="book-name" th:text="${user.name}" ></a>
+        <a style="display: inline-block" class="book-text" th:text="${user.year}" ></a>
     </div>
 </div>
 

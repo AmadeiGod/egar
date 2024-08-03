@@ -28,7 +28,6 @@ public class CalendarPostServices {
         CalendarPost calendarPost1 = new CalendarPost();
         Date date = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Post post = new Post();
         calendarPost1.setId(calendarPost.getId());
         calendarPost1.setText(calendarPost.getText());
         calendarPost1.setDateCreate(date);

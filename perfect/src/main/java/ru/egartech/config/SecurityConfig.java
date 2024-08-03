@@ -58,8 +58,11 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/test","users", "/lenta","/*").permitAll()
-                        .requestMatchers("/news/update-post").hasAnyAuthority("HR")
+                        .requestMatchers("/test", "/lenta").permitAll()
+                        .requestMatchers("/users").hasAnyAuthority("HR","MANAGER","CHIEF","COOK")
+                        .requestMatchers("/edit-calendarPost","/add-calendarPost", "/ivent", "/ivent-check").hasAnyAuthority("HR","MANAGER")
+                        .requestMatchers("/all-menu","/all-menu-update", "/cook-menu-addDish").hasAnyAuthority("COOK")
+                        .requestMatchers("/giveTask").hasAnyAuthority("CHIEF")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
