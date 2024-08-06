@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,12 @@ import java.util.List;
 public class DishController {
     @Autowired
     public DishRepository dishRepository;
+    @Operation(summary = "Страница добавления блюда на склад", description = "СООК")
     @GetMapping("/cook-menu-addDish")
     public String addDishh(Dish dish){
         return "cook/cook-menu-addDish";
     }
+    @Operation(summary = "Добавление блюда на склад", description = "СООК")
     @PostMapping("/add-dish")
     public String addDish(@Valid Dish dish){
         dishRepository.save(dish);

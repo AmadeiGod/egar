@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +29,20 @@ public class ChiefController {
     public UserRepository userRepository;
     @Autowired
     public TaskRepository taskRepository;
+    @Operation(summary = "Отправка задачи", description = "CHIEF")
     @PostMapping("/giveTaskPost")
     public String giveTaskPost(@Valid @ModelAttribute Task task, @Valid String operator, Authentication authentication, HttpServletRequest request) throws ParseException {
         taskServices.createTask(task, userServices.userAuth(authentication,request), operator);
         return "main/lenta";
     }
+    @Operation(summary = "Страница для отправки задач", description = "CHIEF")
     @GetMapping("/giveTask")
     public String giveTaskGet(Task task, Model model){
         List<User> list = userRepository.findAll();
         model.addAttribute("list", list);
         return "task/givetask";
     }
+    @Operation(summary = "Отмечаем задачу решенной", description = "CHIEF")
     @GetMapping("/chief-check-task/{id}")
     public String ChiefCheckTask(@PathVariable("id") long id){
         Optional<Task> task  = taskRepository.findById(id);
@@ -49,6 +53,7 @@ public class ChiefController {
         userRepository.save(user);
         return "redirect:user";
     }
+    @Operation(summary = "Отправка задачи обратно на доработку", description = "CHIEF")
     @GetMapping("/chief-check-task-send/{id}")
     public String ChiefCheckTaskSend(@PathVariable("id") long id){
         Optional<Task> task  = taskRepository.findById(id);
@@ -56,6 +61,7 @@ public class ChiefController {
         taskRepository.save(task.get());
         return "redirect:user";
     }
+    @Operation(summary = "Отправка задачи обратно на доработку с комментарием", description = "CHIEF")
     @PostMapping("/chief-check-task-send-and-com/{id}")
     public String ChiefCheckTaskSendAndCom(@Valid @PathVariable("id") long id, Task task, HttpServletRequest request){
         Optional<Task> task1 = taskRepository.findById(id);

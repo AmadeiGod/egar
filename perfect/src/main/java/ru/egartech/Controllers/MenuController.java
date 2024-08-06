@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,12 +33,14 @@ public class MenuController {
     public UserRepository userRepository;
     @Autowired
     public CalendarPostRepository calendarPostRepository;
+    @Operation(summary = "Все блюда на складе", description = "СООК")
     @GetMapping("/all-menu")
     public String all_menu(Model model){
         List<Dish> list = dishRepository.findAll();
         model.addAttribute("list", list);
         return "cook/all-menu";
     }
+    @Operation(summary = "Страница изменения блюд на складе", description = "СООК")
     @GetMapping("/all-menu-update")
     public String all_menuUpdate(Model model){
         Menu menu = new Menu();
@@ -45,6 +48,7 @@ public class MenuController {
         model.addAttribute("form", menu);
         return "cook/all-menu-update";
     }
+    @Operation(summary = "Изменение всего меню склада", description = "СООК")
     @PostMapping("/all-menu-update-post")
     public String all_menuUpdatePost(@ModelAttribute Menu form){
         List<Dish> list = form.getListDish();

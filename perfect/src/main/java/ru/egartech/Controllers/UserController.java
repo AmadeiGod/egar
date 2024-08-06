@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -34,7 +35,7 @@ public class UserController {
     public UserServices userServices;
     @Autowired
     public TaskRepository taskRepository;
-
+    @Operation(summary = "Все пользователи")
     @GetMapping("/users")
     public String all_users(Model model) throws InterruptedException {
         List<UserDto> list = new ArrayList<>();
@@ -44,6 +45,7 @@ public class UserController {
         model.addAttribute("list", list);
         return "user/users";
     }
+    @Operation(summary = "Тут информация для каждого пользователя(индивидуально)")
     @GetMapping("/user")
     public String user( Task task, Model model, Authentication authentication, HttpServletRequest request) throws ClassNotFoundException {
         authentication = (Authentication) request.getUserPrincipal();
@@ -54,8 +56,6 @@ public class UserController {
         model.addAttribute("taskSolveAndCheckNo", taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, false));
         model.addAttribute("taskSolveAndCheckYes", taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, true));
         List<Task> taskList = taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, true);
-
-
         int sum = 0;
         for(int i = 0; i < taskList.size(); i++){
             sum += taskList.get(i).getScoreTask();
@@ -65,6 +65,7 @@ public class UserController {
 
         return "user/user";
     }
+    @Operation(summary = "Отправка задачи обратно", description = "USER")
     @GetMapping("/user-send-task/{id}")
     public String userSendTask(@PathVariable("id") long id){
         Optional<Task> task = taskRepository.findById(id);

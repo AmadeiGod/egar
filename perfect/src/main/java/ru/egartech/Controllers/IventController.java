@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class IventController {
     public MenuRepository menuRepository;
     @Autowired
     public SendDishRepository sendDishRepository;
-
+    @Operation(summary = "Просмотр всех мероприятий", description = "USER")
     @GetMapping("/ivent")
     public String ivent(Model model, Authentication authentication, HttpServletRequest request){
         User user = userServices.userAuth(authentication,request);
@@ -44,6 +45,7 @@ public class IventController {
         model.addAttribute("list", list);
         return "ivent/ivent";
     }
+    @Operation(summary = "Просмотр всех созданных мероприятий", description = "HR or MANAGER")
     @GetMapping("/ivent-check")
     public String ivent_chech( Model model, Authentication authentication, HttpServletRequest request, CalendarPost accept){
         User user = userServices.userAuth(authentication,request);
@@ -60,6 +62,7 @@ public class IventController {
 
         return "ivent/ivent-check";
     }
+    @Operation(summary = "Переход на подробности мероприятия, кто принял участие", description = "HR or MANAGER")
     @GetMapping("/ivent-check/{id}")
     public String ivent_orderp(@PathVariable("id") long id,  @ModelAttribute CalendarPost accept, Model model){
         model.addAttribute("id", id);
@@ -67,6 +70,7 @@ public class IventController {
         model.addAttribute("calendarPost", calendarPost);
         return "/ivent/sss";
     }
+    @Operation(summary = "Отмечаем пользователей, которые есть на мероприятии", description = "MANAGER or HR")
     @Transactional
     @PostMapping("/ivent-check/{id}")
     public String ivent_orderPost(@PathVariable("id") long id,  @ModelAttribute CalendarPost accept){

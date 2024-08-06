@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,16 +21,18 @@ public class AuthController {
     @Autowired
     public UserServices userServices;
 
-
+    @Operation(summary = "Авторизация")
     @GetMapping("/auth/login")
     public String t(){
         return "/auth/login";
     }
+
     @GetMapping("/registration")
     public String registration(Model model) {
         RegDto regDto = new RegDto();
         model.addAttribute("user", regDto);
         return "auth/registration";}
+    @Operation(summary = "Регистрация пользователя", description = "Позволяет зарегистрировать пользователя")
     @PostMapping("/registration")
     public String registerUserAccount(@Valid RegDto registrationDto) {
 

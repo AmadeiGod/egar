@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
@@ -25,8 +26,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static junit.framework.Assert.assertEquals;
 
+@AutoConfigureMockMvc
 @SpringBootTest
 public class PerfectApplicationTests {
 
@@ -47,7 +48,6 @@ public class PerfectApplicationTests {
 
     @Test
     public void calendarPostServicesAddUserToCalendarPost() throws Exception {
-
 
         Mockito.when(calendarPostRepository.save(calendarPost)).thenReturn(calendarPost);
         calendarPostServices.addUserToCalendarPost(user, calendarPost);

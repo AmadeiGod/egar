@@ -1,5 +1,6 @@
 package ru.egartech.Controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -60,6 +61,7 @@ public class CalendarController {
         model.addAttribute("form", menu);
         return "calendar/add-calendarPost";
     }
+    @Operation(summary = "Добавление события")
     @Transactional
     @PostMapping("/add-calendarPost")
     public String addPost(@ModelAttribute Menu form, @Valid CalendarPost calendarPost, Authentication authentication, HttpServletRequest request, Model model) throws ParseException {
@@ -93,6 +95,7 @@ public class CalendarController {
         menuRepository.save(menu);
         return "redirect:calendar";
     }
+    @Operation(summary = "Добавление пользователя к событию")
     @Transactional
     @PostMapping("/calendarPostAddUser/{id}")
     public String calendarPostAddUser(@ModelAttribute Menu form, @PathVariable("id") long id, Authentication authentication, HttpServletRequest request){
