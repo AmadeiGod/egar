@@ -24,7 +24,8 @@ import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Контроллер меню. Тут происходят основные взаимодейсвтия с блюдами(dish)**/
 @Controller
 public class MenuController {
     @Autowired

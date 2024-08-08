@@ -16,7 +16,23 @@ import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.Task;
 
 import java.text.ParseException;
-
+/**
+ * URL: /giveTask
+ * Описание: Страница для добавления задачи сотруднику
+ *
+ * URL: /giveTaskPost
+ * Описание: Добавление задачи сотруднику
+ *
+ * URL: /chief-check-task/{id}
+ * Описание: CHIEF проверил задачу и остался доволен. Задача считается решенной и отправляет в архив
+ *
+ * URL: /chief-check-task-send/{id}
+ * Описание: CHIEF проверил задачу и остался недоволен, поэтому возвращает задачу обратно сотруднику
+ *
+ * URL: /chief-check-task-send-and-com/{id}
+ * Описание: CHIEF проверил задачу и остался недоволен,
+ * поэтому оставляет комментарий к задаче и возвращает ее обратно сотруднику
+ * **/
 @Controller
 public class ChiefController {
     @Autowired

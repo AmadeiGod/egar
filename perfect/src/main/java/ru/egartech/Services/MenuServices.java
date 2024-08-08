@@ -13,7 +13,7 @@ public class MenuServices {
     @Autowired
     public DishRepository dishRepository;
 
-    public void menuUpdate(Menu form) {
+    public List<Dish> menuUpdate(Menu form) {
         List<Dish> list = form.getListDish();
         dishRepository.deleteAll();
         list.forEach(e -> {
@@ -21,5 +21,6 @@ public class MenuServices {
                 dishRepository.save(e);
             }
         });
+        return list;
     }
 }

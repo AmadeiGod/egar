@@ -15,7 +15,13 @@ import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.CalendarPost;
 
 import java.util.*;
-
+/**
+ * /ivent - показывает все ивенты
+ * /ivent-check - показывает все ивенты, которые создали вы
+ * /ivent-check/{id} - Когда вы находитесь на эндпоинте  /ivent-check, на каждый ивент можно нажать и перейти
+ * на более подробную информацию об ивенте и их участниках. Также там можно отметить кто пришел на мероприятие
+ * /ivent-check/{id}(post) - отметили, кто пришел на ивент
+ **/
 @Controller
 public class IventController {
     @Autowired

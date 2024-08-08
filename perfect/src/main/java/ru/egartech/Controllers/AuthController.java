@@ -12,7 +12,17 @@ import ru.egartech.Dto.RegDto;
 
 import ru.egartech.Repository.UserRepository;
 import ru.egartech.Services.UserServices.UserServices;
-
+/**
+ * URL: /auth/login
+ * Описание: Страница входа
+ *
+ *
+ * URL: /registration
+ * Описание: Страница регистрации
+ *
+ * URL: /registration
+ * Описание: Регистрация через login и password
+ * **/
 @Controller
 public class AuthController {
     ;

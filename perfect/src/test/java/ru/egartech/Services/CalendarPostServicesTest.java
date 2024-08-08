@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class CalendarPostTest {
+public class CalendarPostServicesTest {
     @Mock
     private CalendarPostRepository calendarPostRepository;
     @Autowired

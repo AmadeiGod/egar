@@ -12,16 +12,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.egartech.Services.DishServices;
+
 import ru.egartech.models.*;
 import ru.egartech.Repository.*;
 
 import ru.egartech.Services.CalendarPostServices;
-import ru.egartech.Services.UserServices.UserServices;
 
-import java.text.ParseException;
 import java.util.*;
-
+/**
+ * URL: /calendar
+ * Описание: Страница показывает все мероприятия
+ *
+ * URL: /edit-calendarPost
+ * Описание: Страница для добавления мероприятия
+ *
+ * URL: /add-calendarPost
+ * Описание: Добавление мероприятия
+ *
+ * URL: /ivent
+ * Описание: Все мероприятия, которые создал MANAGER или HR
+ *
+ * URL: /ivent-check
+ * Описание: Показывает все мероприятия. Тут MANAGER или HR может нажать на мероприятие и отметить кто пришел на него
+ *
+ * URL: /ivent-check/{id}
+ * Описание: Страница мероприятия. Показывает кто записался на него
+ *
+ * URL: /ivent-check/{id}
+ * Метод: Post
+ * Описание: MANAGER или HR отмечает кто пришел на мероприятие
+ * **/
 @Controller
 public class CalendarController {
 

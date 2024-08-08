@@ -10,6 +10,7 @@ import ru.egartech.Repository.TaskRepository;
 import ru.egartech.models.Task;
 
 import java.util.Optional;
+
 @Service
 public class ChiefServices {
     @Autowired
@@ -17,20 +18,28 @@ public class ChiefServices {
 
 
     public void chiefCheckTask(long id) {
-        Optional<Task> task = taskRepository.findById(id);
-        task.get().setCheckChief(true);
-        taskRepository.save(task.get());
+        if (taskRepository.findById(id).isPresent()) {
+            Optional<Task> task = taskRepository.findById(id);
+            task.get().setCheckChief(true);
+            taskRepository.save(task.get());
+        }
     }
 
     public void chiefCheckTaskSend(long id) {
-        Optional<Task> task = taskRepository.findById(id);
-        task.get().setSolve(false);
-        taskRepository.save(task.get());
+        if (taskRepository.findById(id).isPresent()) {
+            Optional<Task> task = taskRepository.findById(id);
+            task.get().setSolve(false);
+            taskRepository.save(task.get());
+        }
+
     }
+
     public void chiefCheckTaskSendAndCom(@Valid long id, Task task) {
-        Optional<Task> task1 = taskRepository.findById(id);
-        task1.get().setText(task1.get().getText() + task.getText());
-        task1.get().setSolve(false);
-        taskRepository.save(task1.get());;
+        if (taskRepository.findById(id).isPresent()) {
+            Optional<Task> task1 = taskRepository.findById(id);
+            task1.get().setText(task1.get().getText() + task.getText());
+            task1.get().setSolve(false);
+            taskRepository.save(task1.get());
+        }
     }
 }
