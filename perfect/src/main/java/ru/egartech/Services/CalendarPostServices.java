@@ -69,7 +69,7 @@ public class CalendarPostServices {
         }
 
     }
-    public boolean check_menu_for_dish_and_countDish(Menu form, CalendarPost calendarPost){
+    public boolean checkMenuForDishAndCountDish(Menu form, CalendarPost calendarPost){
         for(int i = 0; i < form.getListDish().size();i++){
             Dish dish = form.getListDish().get(i);
             if(dish.getCount() > 3){  // максимум у человека может быть 3 блюда одной позиции
@@ -79,7 +79,7 @@ public class CalendarPostServices {
         }
         return true;
     }
-    public void reverse_dish_and_save(Dish dish, CalendarPost calendarPost, User user){
+    public void reverseDishAndSave(Dish dish, CalendarPost calendarPost, User user){
         SendDish sendDish = sendDishRepository.findByNameAndUserAndMenu(dish.getName(), user, calendarPost.getMenu()).get();
         SendDish sendDish1 = sendDishRepository.findByNameAndTypeAndCalendarPost(
                 sendDish.getName(), "Заготовка", calendarPost).get();
@@ -90,7 +90,7 @@ public class CalendarPostServices {
         sendDish1.setCount(sendDish1.getCount() + g - dish.getCount());
         sendDishRepository.save(sendDish1);
     }
-    public boolean check_dish_warehouse(Menu form){
+    public boolean checkDishWarehouse(Menu form){
         for(int i = 0; i < form.getListDish().size(); i++){
             Dish dish = form.getListDish().get(i);
             Dish dish1 = dishRepository.findByName(dish.getName()).get();
@@ -109,7 +109,7 @@ public class CalendarPostServices {
         menu = menuRepository.save(menu);
         List<SendDish> list = new ArrayList<>();
         try{
-            if(calendarPostServices.check_dish_warehouse(form)){
+            if(calendarPostServices.checkDishWarehouse(form)){
                 calendarPost = calendarPostServices.addCalendarPost(calendarPost,user, menu);
 
                 for(int k = 0; k < form.getListDish().size(); k++){
@@ -147,7 +147,7 @@ public class CalendarPostServices {
         if (sendDishRepository.findByUserAndMenuAndAndCalendarPost(
                 user, calendarPost.getMenu(), calendarPost).size() == 0) { // проверка на то, заказывал ли юзер до этого меню
             try {
-                if (calendarPostServices.check_menu_for_dish_and_countDish(form, calendarPost)) {
+                if (calendarPostServices.checkMenuForDishAndCountDish(form, calendarPost)) {
 
                     for (int i = 0; i < form.getListDish().size(); i++) {
                         SendDish sendDish = dishServices.mapDishToSendDishForGuest(form.getListDish().get(i), user, calendarPost);
@@ -167,11 +167,11 @@ public class CalendarPostServices {
             }
         } else {
             try {
-                if (calendarPostServices.check_menu_for_dish_and_countDish(form, calendarPost)) {
+                if (calendarPostServices.checkMenuForDishAndCountDish(form, calendarPost)) {
 
                     for (int i = 0; i < form.getListDish().size(); i++) {
                         Dish dish = form.getListDish().get(i);
-                        calendarPostServices.reverse_dish_and_save(dish, calendarPost, user);
+                        calendarPostServices.reverseDishAndSave(dish, calendarPost, user);
                     }
                     calendarPostRepository.save(calendarPost);
                     calendarPost.getMenu().getUserList().add(user);

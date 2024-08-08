@@ -27,15 +27,19 @@ public class IventServices {
         });
         return list;
     }
-
+    /**
+     * Пояснение:
+     * accept - это список, который приходит к нам с чекпоинтами тех кто пришел, а далее мы находим через id наш пост
+     * и удаляем в списке ListVisitUser людей, которые отммечены чекпоинтами, а в список ListForCheckUser добавляем **/
     public void iventAddUserToListForCheckUserAndDeleteUserFromListVisitUser(long id, CalendarPost accept) {
         int i = 0;
         CalendarPost accept1 = calendarPostRepository.findById(id).get();
         while (i < accept.getListVisitUser().size()) {
-            accept.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
-            accept1.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
-            calendarPostRepository.save(accept1);
-
+            if(accept.getListVisitUser().get(i).isCheckIvent()) {
+                accept.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
+                accept1.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
+                calendarPostRepository.save(accept1);
+            }
             i++;
         }
         for (int p = 0; p < accept1.getListVisitUser().size(); p++) {

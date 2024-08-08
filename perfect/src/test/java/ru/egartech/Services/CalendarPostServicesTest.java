@@ -36,8 +36,9 @@ public class CalendarPostServicesTest {
     User user = new User();
     Dish dish = new Dish();
     Menu menu = new Menu();
+
     @Test
-    public void calendarPostServicesAddUserToCalendarPost() throws Exception {
+    public void addUserToCalendarPostTest() throws Exception {
 
         Mockito.when(calendarPostRepository.save(calendarPost)).thenReturn(calendarPost);
         calendarPostServices.addUserToCalendarPost(user, calendarPost);
@@ -49,7 +50,7 @@ public class CalendarPostServicesTest {
     }
 
     @Test
-    public void CalendarPostServicesAddCalendarPost() throws ParseException {
+    public void addCalendarPostTest() throws ParseException {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -66,7 +67,7 @@ public class CalendarPostServicesTest {
     }
 
     @Test
-    public void CalendarPostServicesCheck_menu_for_dish_and_countDish() throws ParseException {
+    public void checkMenuForDishAndCountDishTest() throws ParseException {
 
         dish.setCount(2);
         dish.setName("123");
@@ -78,7 +79,7 @@ public class CalendarPostServicesTest {
         dish.setName("123");
         menu.getListDish().add(dish);
 
-        Assertions.assertTrue(calendarPostServices.check_menu_for_dish_and_countDish(menu, calendarPost));
+        Assertions.assertTrue(calendarPostServices.checkMenuForDishAndCountDish(menu, calendarPost));
 
         menu.setListDish(new ArrayList<>());
 
@@ -92,12 +93,12 @@ public class CalendarPostServicesTest {
         dish.setName("123");
         menu.getListDish().add(dish);
 
-        Assertions.assertFalse(calendarPostServices.check_menu_for_dish_and_countDish(menu, calendarPost));
+        Assertions.assertFalse(calendarPostServices.checkMenuForDishAndCountDish(menu, calendarPost));
 
     }
 
     @Test
-    public void CalendarPostServicesReverse_dish_and_save() {
+    public void reverseDishAndSaveTest() {
 
         // dish - это новое количество
         // sendDish - это старое количество
@@ -115,7 +116,7 @@ public class CalendarPostServicesTest {
         Mockito.when(sendDishRepository.findByNameAndTypeAndCalendarPost(sendDish.get().getName(), "Заготовка", calendarPost))
                 .thenReturn(sendDish1);
 
-        calendarPostServices.reverse_dish_and_save(dish, calendarPost, user);
+        calendarPostServices.reverseDishAndSave(dish, calendarPost, user);
 
         Assertions.assertEquals(sendDish1.get().getCount(), 25);
 
@@ -123,13 +124,13 @@ public class CalendarPostServicesTest {
         sendDish.get().setCount(1);
         sendDish1.get().setCount(5);
 
-        calendarPostServices.reverse_dish_and_save(dish, calendarPost, user);
+        calendarPostServices.reverseDishAndSave(dish, calendarPost, user);
 
         Assertions.assertEquals(sendDish1.get().getCount(), -1);
     }
 
     @Test
-    public void CalendarPostServicesCheck_dish_warehouse() {
+    public void checkDishWarehouseTest() {
 
         Dish dish = new Dish();
         Optional<Dish> dish1 = Optional.of(new Dish());
@@ -141,7 +142,7 @@ public class CalendarPostServicesTest {
 
         Mockito.when(dishRepository.findByName(dish.getName())).thenReturn(dish1);
 
-        Assertions.assertTrue(calendarPostServices.check_dish_warehouse(menu));
+        Assertions.assertTrue(calendarPostServices.checkDishWarehouse(menu));
 
         menu.setListDish(new ArrayList<>());
 
@@ -150,7 +151,7 @@ public class CalendarPostServicesTest {
 
         menu.getListDish().add(dish);
 
-        Assertions.assertFalse(calendarPostServices.check_dish_warehouse(menu));
+        Assertions.assertFalse(calendarPostServices.checkDishWarehouse(menu));
 
     }
 }

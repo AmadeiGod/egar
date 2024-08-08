@@ -30,7 +30,6 @@ public class TaskServicesTest {
     @Mock
     public UserRepository userRepository;
 
-
     @Test
     public void giveTaskToUserTest() throws ParseException {
         Task task = new Task();

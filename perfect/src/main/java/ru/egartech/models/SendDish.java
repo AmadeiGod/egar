@@ -24,9 +24,9 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Entity
-public class SendDish {
+public class SendDish extends Dish{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

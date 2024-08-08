@@ -23,7 +23,6 @@ public class TaskServices {
     @Autowired
     public UserRepository userRepository;
 
-
     public void createTask(Task task, User user, String login) throws ParseException {
         Task task1 = new Task();
         Date date = new Date();

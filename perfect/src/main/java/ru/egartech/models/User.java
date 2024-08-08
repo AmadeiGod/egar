@@ -33,5 +33,6 @@ public class User {
     private int year;
     private String name;
     private String surname;
+    private boolean checkIvent = false;
 
 };
