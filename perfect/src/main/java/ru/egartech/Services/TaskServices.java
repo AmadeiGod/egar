@@ -1,5 +1,7 @@
 package ru.egartech.Services;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.egartech.Repository.TaskRepository;
@@ -11,13 +13,17 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+@Getter
+@Setter
 @Service
 public class TaskServices {
     @Autowired
     public TaskRepository taskRepository;
     @Autowired
     public UserRepository userRepository;
+
+
+
     public void createTask(Task task, User user, String login) throws ParseException {
         Task task1 = new Task();
         Date date = new Date();

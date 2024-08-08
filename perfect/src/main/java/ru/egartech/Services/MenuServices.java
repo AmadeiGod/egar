@@ -12,11 +12,12 @@ import java.util.List;
 public class MenuServices {
     @Autowired
     public DishRepository dishRepository;
-    public void menuUpdate(Menu form){
+
+    public void menuUpdate(Menu form) {
         List<Dish> list = form.getListDish();
         dishRepository.deleteAll();
         list.forEach(e -> {
-            if (e.getCount() != 0){
+            if (e.getCount() > 0) {
                 dishRepository.save(e);
             }
         });
