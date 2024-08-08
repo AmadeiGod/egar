@@ -5,7 +5,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.egartech.Dto.RegDto;
 
@@ -23,27 +25,27 @@ public class AuthController {
 
     @Operation(summary = "Авторизация")
     @GetMapping("/auth/login")
-    public String t(){
+    public String pageAuthentication() {
         return "/auth/login";
     }
 
     @GetMapping("/registration")
-    public String registration(Model model) {
-        RegDto regDto = new RegDto();
-        model.addAttribute("user", regDto);
-        return "auth/registration";}
-    @Operation(summary = "Регистрация пользователя", description = "Позволяет зарегистрировать пользователя")
-    @PostMapping("/registration")
-    public String registerUserAccount(@Valid RegDto registrationDto) {
+    public String pageRegistration(Model model, RegDto registrationDto) {
+        model.addAttribute("user", registrationDto);
+        return "auth/registration";
+    }
 
-        if (userRepository.existsByLogin(registrationDto.getLogin())) {
-            System.out.println("Такой логин уже есть");
+    @Operation(summary = "Регистрация пользователя")
+    @PostMapping("/registration")
+    public String registerUserAccount(@Valid RegDto registrationDto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
             return "auth/registration";
         }
-        User user = new User();
-        user.setLogin(registrationDto.getLogin());
-        user.setPassword(registrationDto.getPassword());
-        userServices.save(user);
+        if (userRepository.existsByLogin(registrationDto.getLogin())) {
+            return "auth/registration";
+        }
+        userServices.userRegistration(registrationDto);
 
         return "auth/login";
     }

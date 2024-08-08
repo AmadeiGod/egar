@@ -66,7 +66,7 @@ public class CalendarController {
     @PostMapping("/add-calendarPost")
     public String addPost(@ModelAttribute Menu form, @Valid CalendarPost calendarPost, Authentication authentication, HttpServletRequest request, Model model) throws ParseException {
 
-        User user = userServices.userAuth(authentication,request);
+        User user = userServices.userGetFromAuth(authentication,request);
         Menu menu = new Menu();
         Date date = new Date();
         menu = menuRepository.save(menu);
@@ -101,7 +101,7 @@ public class CalendarController {
     public String calendarPostAddUser(@ModelAttribute Menu form, @PathVariable("id") long id, Authentication authentication, HttpServletRequest request){
 
         CalendarPost calendarPost = calendarPostRepository.findById(id).get();
-        User user = userServices.userAuth(authentication,request);
+        User user = userServices.userGetFromAuth(authentication,request);
         boolean check = false;
         for(int i = 0; i < calendarPost.getListVisitUser().size(); i++){ // проверка, пользователь уже участвует на мероприятии?
             if (calendarPost.getListVisitUser().get(i) == user){

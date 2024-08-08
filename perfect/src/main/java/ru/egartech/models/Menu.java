@@ -2,14 +2,25 @@ package ru.egartech.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import ru.egartech.Conventer.CommaDelimitedStringsConverter;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-@Data
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class Menu {
     @Id

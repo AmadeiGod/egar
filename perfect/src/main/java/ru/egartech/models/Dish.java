@@ -10,7 +10,20 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-@Data
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class Dish {
     @Id
@@ -20,5 +33,4 @@ public class Dish {
     @Size(max = 100)
     private String name;
     private int count;
-    // тут еще могут быть поля по типу: калории, вес, горячее, холодное и т.д.
 }

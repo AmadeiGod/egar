@@ -2,15 +2,18 @@ package ru.egartech.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.NonNull;
-import ru.egartech.Conventer.CommaDelimitedStringsConverter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class CalendarPost {
     @Id
@@ -22,8 +25,6 @@ public class CalendarPost {
     public Date dateCreate;
     public Date dateDelete;
     private String dateDeleteString;
-    @OneToMany
-    private List<Image> listImages = new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)

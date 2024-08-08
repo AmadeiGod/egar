@@ -31,17 +31,13 @@ public class ConfigScheduling {
     public EmailSenderService emailSenderService;
     @Autowired
     public CalendarPostRepository calendarPostRepository;
-/*
 
-    public User req( Authentication authentication,HttpServletRequest request){
-        return  userServices.userAuth(authentication,request);
-    }
     @Scheduled(fixedDelay = 1000)
-    public void emailSendTask() throws InterruptedException, AddressException {
-        while (true){
+    public void emailSendTask() throws InterruptedException {
+        while (true) {
             Date date = new Date();
             taskRepository.findAll().stream().filter(
-                    e ->( date.getTime() - e.getTimeToSolve().getTime()) < 86400000).forEach(e->
+                    e -> (date.getTime() - e.getTimeToSolve().getTime()) < 86400000).forEach(e ->
             {
                 try {
                     emailSenderService.sendEmailTask(e.getUserAccept());
@@ -52,12 +48,13 @@ public class ConfigScheduling {
             Thread.sleep(86400000); // 1 день
         }
     }
+
     @Scheduled(fixedDelay = 1000)
-    public void emailSendCalendarPost() throws InterruptedException, AddressException {
-        while (true){
+    public void emailSendCalendarPost() throws InterruptedException {
+        while (true) {
             Date date = new Date();
             calendarPostRepository.findAll().stream().filter(
-                    e ->( date.getTime() - e.getDateDelete().getTime()) < 86400000).forEach(e->
+                    e -> (date.getTime() - e.getDateDelete().getTime()) < 86400000).forEach(e ->
             {
                 try {
                     e.getListVisitUser().forEach(k ->
@@ -74,5 +71,5 @@ public class ConfigScheduling {
             });
             Thread.sleep(86400000); // 1 день
         }
-    }*/
+    }
 }

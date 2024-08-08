@@ -18,8 +18,9 @@ public class Configuration implements WebMvcConfigurer {
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("classpath:/resources/");
     }
+
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
@@ -30,28 +31,5 @@ public class Configuration implements WebMvcConfigurer {
         resolver.setSuffix(".html");
         return resolver;
     }
-    /*
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-    }
-
-    @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-
-        bean.setViewClass(JstlView.class);
-        bean.setPrefix("/templates/");
-        bean.setSuffix(".html");
-
-        return bean;
-    }*/
-
-
-
 }
 

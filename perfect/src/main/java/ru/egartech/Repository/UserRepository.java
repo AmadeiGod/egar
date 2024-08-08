@@ -18,12 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByLogin(String login);
     Optional<User> findByPassword(String password);
     boolean existsByLogin(String login);
-    boolean existsByEmail(String email);
-
-    /*
-    @Transactional
-    @Modifying
-    @Query(value = "update User set email = %:email% where id = %:id%", nativeQuery = true)
-    Optional<User> updateCalendarPost(@Param("calendarPost")CalendarPost calendarPost, @Param("id") Long id);*/
+    boolean existsByPassword(String password);
 
 }

@@ -5,18 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-<div >
-  <p >Главная / Регистрация</p>
-  <h1 >Регистрация</h1>
-  <form method="post" action="#" th:action="@{/registration}"  th:object="${user}" id="registerForm">
+<div>
+    <p>Главная / Регистрация</p>
+    <h1>Регистрация</h1>
+        <form method="post" action="#" th:action="@{/registration}" th:object="${user}" id="registerForm">
 
-    <input type="text" th:field="*{login}" id="login" placeholder="Укажите Ваш логин"/><br/>
+        <input type="text" th:field="*{login}" id="login" placeholder="Укажите Ваш логин" value="" required/><br/>
+        <small  th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></small>
 
-    <input type="password" th:field="*{password}" id="password" placeholder="Придумайте пароль"/><br/>
+        <input type="password" th:field="*{password}" id="password" placeholder="Придумайте пароль"/><br/>
+        <small  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
 
-
-    <input  id="login-button" type="submit" value="Register"/>
-  </form>
+        <input id="login-button" type="submit" value="Register"/>
+    </form>
 </div>
 </body>
 </html>

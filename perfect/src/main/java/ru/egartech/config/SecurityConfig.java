@@ -30,10 +30,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Autowired
     private UserServices userServices;
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserServices();
     }
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -58,10 +60,10 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/test", "/lenta","/registration").permitAll()
-                        .requestMatchers("/users").hasAnyAuthority("HR","MANAGER","CHIEF","COOK")
-                        .requestMatchers("/edit-calendarPost","/add-calendarPost", "/ivent", "/ivent-check").hasAnyAuthority("HR","MANAGER")
-                        .requestMatchers("/all-menu","/all-menu-update", "/cook-menu-addDish").hasAnyAuthority("COOK")
+                        .requestMatchers("/test", "/lenta", "/registration", "/rest/**").permitAll()
+                        .requestMatchers("/users").hasAnyAuthority("HR", "MANAGER", "CHIEF", "COOK")
+                        .requestMatchers("/edit-calendarPost", "/add-calendarPost", "/ivent", "/ivent-check").hasAnyAuthority("HR", "MANAGER")
+                        .requestMatchers("/all-menu", "/all-menu-update", "/cook-menu-addDish").hasAnyAuthority("COOK")
                         .requestMatchers("/giveTask").hasAnyAuthority("CHIEF")
                         .anyRequest().authenticated()
                 )
@@ -80,10 +82,12 @@ public class SecurityConfig {
 
         return http.build();
     }
+
     @Autowired
     protected void registerProvider(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userServices).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     public SecurityContextRepository securityContextRepository() {
         return new DelegatingSecurityContextRepository(

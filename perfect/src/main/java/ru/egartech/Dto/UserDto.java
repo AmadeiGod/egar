@@ -1,9 +1,16 @@
 package ru.egartech.Dto;
 
-import lombok.Data;
 
 import java.util.Date;
-@Data
+import lombok.*;
+
+
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@EqualsAndHashCode
 public class UserDto {
     private String role;
     private Date dateRegistration;

@@ -39,7 +39,7 @@ public class IventController {
     @Operation(summary = "Просмотр всех мероприятий", description = "USER")
     @GetMapping("/ivent")
     public String ivent(Model model, Authentication authentication, HttpServletRequest request){
-        User user = userServices.userAuth(authentication,request);
+        User user = userServices.userGetFromAuth(authentication,request);
         Date date = new Date();
         List<CalendarPost> list = calendarPostRepository.findAll();
         model.addAttribute("list", list);
@@ -48,7 +48,7 @@ public class IventController {
     @Operation(summary = "Просмотр всех созданных мероприятий", description = "HR or MANAGER")
     @GetMapping("/ivent-check")
     public String ivent_chech( Model model, Authentication authentication, HttpServletRequest request, CalendarPost accept){
-        User user = userServices.userAuth(authentication,request);
+        User user = userServices.userGetFromAuth(authentication,request);
         Date date = new Date();
         List<CalendarPost> list = calendarPostRepository.findAllByUser(user).get();
         list.forEach(e -> {
@@ -78,12 +78,10 @@ public class IventController {
         System.out.println(accept);
         CalendarPost accept1 = calendarPostRepository.findById(id).get();
         while (i < accept.getListVisitUser().size()){
-            if(accept.getListVisitUser().get(i).isCheckIvent()){
                 accept.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
                 accept1.getListForCheckUser().add(userRepository.findByLogin(accept.getListVisitUser().get(i).getLogin()).get());
                 calendarPostRepository.save(accept1);
 
-            }
             i++;
         }
 
