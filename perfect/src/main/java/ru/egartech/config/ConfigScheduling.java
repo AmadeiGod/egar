@@ -1,24 +1,16 @@
 package ru.egartech.config;
 
 import jakarta.mail.internet.AddressException;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Services.EmailSenderService;
-import ru.egartech.Services.impl.UserServices;
-import ru.egartech.models.Task;
-import ru.egartech.models.User;
+import ru.egartech.Services.UserServices.UserServices;
 
 import java.util.Date;
-import java.util.List;
 
 @Configuration
 @EnableScheduling

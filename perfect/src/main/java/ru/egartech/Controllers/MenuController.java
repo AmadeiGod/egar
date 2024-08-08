@@ -14,6 +14,8 @@ import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.MenuRepository;
 import ru.egartech.Repository.UserRepository;
+import ru.egartech.Services.DishServices;
+import ru.egartech.Services.MenuServices;
 import ru.egartech.models.Dish;
 import ru.egartech.models.Menu;
 import ru.egartech.models.User;
@@ -26,23 +28,18 @@ import java.util.Optional;
 @Controller
 public class MenuController {
     @Autowired
-    public MenuRepository menuRepository;
-    @Autowired
     public DishRepository dishRepository;
     @Autowired
-    public UserRepository userRepository;
-    @Autowired
-    public CalendarPostRepository calendarPostRepository;
+    public MenuServices menuServices;
     @Operation(summary = "Все блюда на складе", description = "СООК")
     @GetMapping("/all-menu")
-    public String all_menu(Model model){
-        List<Dish> list = dishRepository.findAll();
-        model.addAttribute("list", list);
+    public String allMenuPage(Model model){
+        model.addAttribute("list", dishRepository.findAll());
         return "cook/all-menu";
     }
     @Operation(summary = "Страница изменения блюд на складе", description = "СООК")
     @GetMapping("/all-menu-update")
-    public String all_menuUpdate(Model model){
+    public String allMenuUpdatePage(Model model){
         Menu menu = new Menu();
         menu.setListDish(dishRepository.findAll());
         model.addAttribute("form", menu);
@@ -50,14 +47,8 @@ public class MenuController {
     }
     @Operation(summary = "Изменение всего меню склада", description = "СООК")
     @PostMapping("/all-menu-update-post")
-    public String all_menuUpdatePost(@ModelAttribute Menu form){
-        List<Dish> list = form.getListDish();
-        dishRepository.deleteAll();
-        list.forEach(e -> {
-            if (e.getCount() != 0){
-                dishRepository.save(e);
-            }
-        });
+    public String allMenuUpdatePost(@ModelAttribute Menu form){
+        menuServices.menuUpdate(form);
         return "redirect:/all-menu";
     }
 }

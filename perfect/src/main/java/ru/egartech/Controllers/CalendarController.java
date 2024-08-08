@@ -6,7 +6,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ import ru.egartech.models.*;
 import ru.egartech.Repository.*;
 
 import ru.egartech.Services.CalendarPostServices;
-import ru.egartech.Services.impl.UserServices;
+import ru.egartech.Services.UserServices.UserServices;
 
 import java.text.ParseException;
 import java.util.*;
@@ -81,7 +80,7 @@ public class CalendarController {
                     dish1.setCount(dish1.getCount() - dish.getCount());
                     dishRepository.save(dish1);
 
-                    SendDish sendDish = dishServices.map_dish_to_sendDish_for_calendarPost(dish, menu, calendarPost);
+                    SendDish sendDish = dishServices.mapDishToSendDishForCalendarPost(dish, menu, calendarPost);
                     list.add(sendDishRepository.save(sendDish));
                 }
             }
@@ -115,7 +114,7 @@ public class CalendarController {
                 if(calendarPostServices.check_menu_for_dish_and_countDish(form, calendarPost)){
 
                     for(int i = 0; i < form.getListDish().size();i++){
-                        SendDish sendDish = dishServices.map_dish_to_sendDish_for_guest(form.getListDish().get(i), user, calendarPost);
+                        SendDish sendDish = dishServices.mapDishToSendDishForGuest(form.getListDish().get(i), user, calendarPost);
                         sendDishRepository.save(sendDish);
 
                         SendDish sendDish1 = sendDishRepository.findByNameAndTypeAndMenu(sendDish.getName(), "Заготовка", calendarPost.getMenu()).get();

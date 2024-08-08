@@ -1,12 +1,14 @@
-package ru.egartech.Services.impl;
+package ru.egartech.Services.UserServices;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.egartech.Dto.RegDto;
 import ru.egartech.Dto.UserDto;
-import ru.egartech.models.CalendarPost;
+import ru.egartech.Repository.TaskRepository;
+import ru.egartech.models.Task;
 import ru.egartech.models.User;
 import ru.egartech.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,8 @@ public class UserServices implements UserServicesInterface {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private TaskRepository taskRepository;
 
     public UserServices() {
 
@@ -99,10 +102,40 @@ public class UserServices implements UserServicesInterface {
         old.setDateUpdate(date);
         return userRepository.save(old);
     }
-    public User userRegistration(RegDto registrationDto){
+
+    public User userRegistration(RegDto registrationDto) {
         User user = new User();
         user.setLogin(registrationDto.getLogin());
         user.setPassword(registrationDto.getPassword());
         return save(user);
+    }
+
+    public void userSendTask(long id) {
+        Optional<Task> task = taskRepository.findById(id);
+        task.get().setSolve(true);
+        taskRepository.save(task.get());
+    }
+
+    public void pageUser(Model model, Authentication authentication, HttpServletRequest request) throws ClassNotFoundException {
+        User user = userGetFromAuth(authentication, request);
+        model.addAttribute("user", user);
+        model.addAttribute("taskForUser", taskRepository.findByUserAcceptAndSolve(user, false));
+        model.addAttribute("taskSolveAndCheckNo",
+                taskRepository.findByUserSendAndSolveAndCheckChief(user, true, false));
+        model.addAttribute("taskSolveAndCheckYes",
+                taskRepository.findByUserSendAndSolveAndCheckChief(user, true, true));
+        List<Task> taskList = taskRepository.findByUserSendAndSolveAndCheckChief(user, true, true);
+        int sum = 1;
+        for (Task task : taskList) {
+            sum += task.getScoreTask();
+        }
+        int scoreUser;
+        if (taskList.size() == 0) {
+            scoreUser = 0;
+        } else {
+            scoreUser = sum / taskList.size() + 1;
+        }
+        model.addAttribute("scoreUser", scoreUser);
+
     }
 }

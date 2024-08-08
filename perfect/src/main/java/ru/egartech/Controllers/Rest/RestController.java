@@ -1,10 +1,7 @@
 package ru.egartech.Controllers.Rest;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.egartech.Dto.RegDto;
 import ru.egartech.Dto.UserDto;
@@ -12,16 +9,12 @@ import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.egartech.Services.impl.UserServices;
+import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.Utils.MappingUtils;
 import ru.egartech.models.CalendarPost;
 import ru.egartech.models.Dish;
-import ru.egartech.models.Task;
 import ru.egartech.models.User;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static ru.egartech.Utils.MappingUtils.mapToUserDto;

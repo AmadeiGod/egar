@@ -9,12 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.egartech.Dto.UserDto;
 import ru.egartech.Repository.TaskRepository;
-import ru.egartech.Services.impl.UserServices;
+import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.Task;
 import ru.egartech.models.User;
 import ru.egartech.Repository.UserRepository;
@@ -37,42 +35,22 @@ public class UserController {
 
     @Operation(summary = "Все пользователи")
     @GetMapping("/users")
-    public String pageAllUsers(Model model) throws InterruptedException {
-        List<UserDto> list = new ArrayList<>();
-        userRepository.findAll().forEach(
-                e -> list.add(mapToUserDto(e))
-        );
-        model.addAttribute("list", list);
+    public String pageAllUsers(Model model){
+        model.addAttribute("list", userServices.getListUserDto(userRepository.findAll()));
         return "user/users";
     }
 
     @Operation(summary = "Тут информация для каждого пользователя(индивидуально)")
     @GetMapping("/user")
     public String pageUser(Task task, Model model, Authentication authentication, HttpServletRequest request) throws ClassNotFoundException {
-        authentication = (Authentication) request.getUserPrincipal();
-        var userDetails = (UserDetails) authentication.getPrincipal();
-        Optional<User> user = userRepository.findByPassword(userDetails.getPassword());
-        model.addAttribute("user", user.get());
-        model.addAttribute("taskForUser", taskRepository.findByUserAcceptAndSolve(user.get(), false));
-        model.addAttribute("taskSolveAndCheckNo", taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, false));
-        model.addAttribute("taskSolveAndCheckYes", taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, true));
-        List<Task> taskList = taskRepository.findByUserSendAndSolveAndCheckChief(user.get(), true, true);
-        int sum = 0;
-        for (int i = 0; i < taskList.size(); i++) {
-            sum += taskList.get(i).getScoreTask();
-        }
-        int scoreUser = sum / taskList.size();
-        model.addAttribute("scoreUser", scoreUser);
-
+        userServices.pageUser(model, authentication, request);
         return "user/user";
     }
 
     @Operation(summary = "Отправка задачи обратно", description = "USER")
     @GetMapping("/user-send-task/{id}")
     public String userSendTask(@PathVariable("id") long id) {
-        Optional<Task> task = taskRepository.findById(id);
-        task.get().setSolve(true);
-        taskRepository.save(task.get());
+        userServices.userSendTask(id);
         return "redirect:user";
     }
 }

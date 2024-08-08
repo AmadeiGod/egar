@@ -10,14 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Repository.UserRepository;
+import ru.egartech.Services.ChiefServices;
 import ru.egartech.Services.TaskServices;
-import ru.egartech.Services.impl.UserServices;
+import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.Task;
-import ru.egartech.models.User;
 
 import java.text.ParseException;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ChiefController {
@@ -29,6 +27,8 @@ public class ChiefController {
     public UserRepository userRepository;
     @Autowired
     public TaskRepository taskRepository;
+    @Autowired
+    public ChiefServices chiefServices;
 
     @Operation(summary = "Отправка задачи", description = "CHIEF")
     @PostMapping("/giveTaskPost")
@@ -49,31 +49,21 @@ public class ChiefController {
     @Operation(summary = "Отмечаем задачу решенной", description = "CHIEF")
     @GetMapping("/chief-check-task/{id}")
     public String chiefCheckTask(@PathVariable("id") long id) {
-        Optional<Task> task = taskRepository.findById(id);
-        task.get().setCheckChief(true);
-        taskRepository.save(task.get());
-        User user = task.get().getUserAccept();
-
-        userRepository.save(user);
+        chiefServices.chiefCheckTask(id);
         return "redirect:user";
     }
 
     @Operation(summary = "Отправка задачи обратно на доработку", description = "CHIEF")
     @GetMapping("/chief-check-task-send/{id}")
     public String chiefCheckTaskSend(@PathVariable("id") long id) {
-        Optional<Task> task = taskRepository.findById(id);
-        task.get().setSolve(false);
-        taskRepository.save(task.get());
+        chiefServices.chiefCheckTaskSend(id);
         return "redirect:user";
     }
 
     @Operation(summary = "Отправка задачи обратно на доработку с комментарием", description = "CHIEF")
     @PostMapping("/chief-check-task-send-and-com/{id}")
     public String chiefCheckTaskSendAndCom(@Valid @PathVariable("id") long id, Task task) {
-        Optional<Task> task1 = taskRepository.findById(id);
-        task1.get().setText(task1.get().getText() + task.getText());
-        task1.get().setSolve(false);
-        taskRepository.save(task1.get());
+        chiefServices.chiefCheckTaskSendAndCom(id,task);
         return "redirect:user";
     }
 }
