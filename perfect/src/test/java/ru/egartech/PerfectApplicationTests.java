@@ -72,7 +72,7 @@ public class PerfectApplicationTests {
     @Test
     public void TestUser() throws Exception {
 
-        long id = 32L;
+        long id = 32;
 
         mockMvc.perform(
                         get("/rest/user/{id}", id))

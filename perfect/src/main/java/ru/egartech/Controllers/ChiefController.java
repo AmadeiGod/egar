@@ -17,19 +17,19 @@ import ru.egartech.models.Task;
 
 import java.text.ParseException;
 /**
- * URL: /giveTask
+ * URL: /giveTask<p>
  * Описание: Страница для добавления задачи сотруднику
- *
- * URL: /giveTaskPost
+ * <p>
+ * URL: /giveTaskPost<p>
  * Описание: Добавление задачи сотруднику
- *
- * URL: /chief-check-task/{id}
+ * <p>
+ * URL: /chief-check-task/{id}<p>
  * Описание: CHIEF проверил задачу и остался доволен. Задача считается решенной и отправляет в архив
- *
- * URL: /chief-check-task-send/{id}
+ * <p>
+ * URL: /chief-check-task-send/{id}<p>
  * Описание: CHIEF проверил задачу и остался недоволен, поэтому возвращает задачу обратно сотруднику
- *
- * URL: /chief-check-task-send-and-com/{id}
+ * <p>
+ * URL: /chief-check-task-send-and-com/{id}<p>
  * Описание: CHIEF проверил задачу и остался недоволен,
  * поэтому оставляет комментарий к задаче и возвращает ее обратно сотруднику
  * **/

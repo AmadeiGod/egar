@@ -23,16 +23,16 @@ import java.util.Optional;
 
 import static ru.egartech.Utils.MappingUtils.mapToUserDto;
 /**
- * URL: /user
+ * URL: /user<p>
  * Описание: Личная страница
- *
- * URL: /users
+ * <p>
+ * URL: /users<p>
  * Описание: Все пользователи
- *
- * URL: /user-send-task/{id}
+ * <p>
+ * URL: /user-send-task/{id}<p>
  * Описание: Отправка задачи CHIEF на проверку
- *
- * URL: /calendarPostAddUser/{id}
+ * <p>
+ * URL: /calendarPostAddUser/{id}<p>
  * Описание: Добавления USER на мероприятие
  * **/
 @Controller

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.egartech.Repository.DishRepository;
+import ru.egartech.Services.DishServices;
 import ru.egartech.models.Dish;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.List;
 public class DishController {
     @Autowired
     public DishRepository dishRepository;
+    @Autowired
+    public DishServices dishServices;
     @Operation(summary = "Страница добавления блюда на склад", description = "СООК")
     @GetMapping("/cook-menu-addDish")
     public String addDishh(Dish dish){
@@ -24,7 +27,7 @@ public class DishController {
     @Operation(summary = "Добавление блюда на склад", description = "СООК")
     @PostMapping("/add-dish")
     public String addDish(@Valid Dish dish){
-        dishRepository.save(dish);
+        dishServices.save(dish);
         return "cook/cook-menu-addDish";
     }
 }

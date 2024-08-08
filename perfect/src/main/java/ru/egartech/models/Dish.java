@@ -23,9 +23,12 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Entity
-public class Dish {
+@Inheritance(
+        strategy = InheritanceType.JOINED
+)
+public class Dish extends TimeCheck{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

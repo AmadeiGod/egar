@@ -20,25 +20,25 @@ import ru.egartech.Services.CalendarPostServices;
 
 import java.util.*;
 /**
- * URL: /calendar
+ * URL: /calendar <p>
  * Описание: Страница показывает все мероприятия
- *
- * URL: /edit-calendarPost
+ * <p>
+ * URL: /edit-calendarPost<p>
  * Описание: Страница для добавления мероприятия
- *
- * URL: /add-calendarPost
+ * <p>
+ * URL: /add-calendarPost<p>
  * Описание: Добавление мероприятия
- *
- * URL: /ivent
+ * <p>
+ * URL: /ivent<p>
  * Описание: Все мероприятия, которые создал MANAGER или HR
- *
- * URL: /ivent-check
+ * <p>
+ * URL: /ivent-check<p>
  * Описание: Показывает все мероприятия. Тут MANAGER или HR может нажать на мероприятие и отметить кто пришел на него
- *
- * URL: /ivent-check/{id}
+ * <p>
+ * URL: /ivent-check/{id}<p>
  * Описание: Страница мероприятия. Показывает кто записался на него
- *
- * URL: /ivent-check/{id}
+ * <p>
+ * URL: /ivent-check/{id}<p>
  * Метод: Post
  * Описание: MANAGER или HR отмечает кто пришел на мероприятие
  * **/

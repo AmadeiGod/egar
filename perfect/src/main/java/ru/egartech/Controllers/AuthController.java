@@ -13,14 +13,14 @@ import ru.egartech.Dto.RegDto;
 import ru.egartech.Repository.UserRepository;
 import ru.egartech.Services.UserServices.UserServices;
 /**
- * URL: /auth/login
+ * URL: /auth/login <p>
  * Описание: Страница входа
+ * <p>
  *
- *
- * URL: /registration
+ * URL: /registration <p>
  * Описание: Страница регистрации
- *
- * URL: /registration
+ * <p>
+ * URL: /registration <p>
  * Описание: Регистрация через login и password
  * **/
 @Controller

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.models.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,6 +32,11 @@ public class DishServices {
         sendDish.setCalendarPost(calendarPost);
         return sendDish;
     }
-
+    public Dish save(Dish dish){
+        Date date = new Date();
+        dish.setDateCreate(date);
+        dish.setDateUpdate(date);
+        return dishRepository.save(dish);
+    }
 
 }

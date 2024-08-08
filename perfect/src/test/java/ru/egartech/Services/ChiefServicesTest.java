@@ -22,8 +22,6 @@ import static org.mockito.Mockito.when;
 @EnableScheduling
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ChiefServicesTest {
-    private static final String NAME1 = "testing";
-    private static final String NAME2 = "test";
     @Mock
     private TaskRepository taskRepository;
     @InjectMocks
