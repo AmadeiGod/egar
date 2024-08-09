@@ -9,25 +9,31 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.thymeleaf.exceptions.TemplateInputException;
 
 import java.text.ParseException;
 
 @ControllerAdvice
 public class ExceptionsController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public String handleException(MethodArgumentNotValidException e) {
-        System.out.println("Некорректная форма ввода : " + e.getMessage());
-        return "redirect:/lenta";
+    public ResponseError handleException(MethodArgumentNotValidException e) {
+        System.out.println("Ошибка : " + e.getMessage());
+        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
     }
     @ExceptionHandler(ParseException.class)
-    public String ParseException(ParseException e) {
-        System.out.println("Введите дату : " + e.getMessage());
-        return "redirect:/lenta";
+    public ResponseError ParseException(ParseException e) {
+        System.out.println("Ошибка : " + e.getMessage());
+        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
+    }
+    @ExceptionHandler(TemplateInputException.class)
+    public ResponseError TemplateInputException(ParseException e) {
+        System.out.println("Ошибка : " + e.getMessage());
+        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
     }
     @ExceptionHandler(NullPointerException.class)
-    public String NullPointerException(NullPointerException e) {
-        System.out.println("Авторизуйтесь : " + e.getMessage());
-        return "redirect:/lenta";
+    public ResponseError NullPointerException(NullPointerException e) {
+        System.out.println("Ошибка : " + e.getMessage());
+        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
     }
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, WebRequest request, HttpStatus status) {

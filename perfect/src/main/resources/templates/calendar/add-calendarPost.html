@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="POST" action="#" th:action="@{/add-calendarPost}"  th:object="${calendarPost}" id="registerForm">
+<form method="POST" action="#" th:action="@{/add-calendarPost}"  th:object="${calendarPostDto}" id="registerForm">
 
     <input type="text" th:field="*{text}" id="text" placeholder="Укажите Ваш text"/><br/>
 

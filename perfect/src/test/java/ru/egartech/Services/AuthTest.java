@@ -24,7 +24,6 @@ import ru.egartech.Controllers.AuthController;
 @SpringBootTest
 public class AuthTest {
     private static final String NAME1 = "testing";
-    private static final String NAME2 = "test";
     @Autowired
     private MockMvc mockMvc;
 

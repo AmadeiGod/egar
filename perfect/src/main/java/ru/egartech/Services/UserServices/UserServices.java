@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.egartech.Dto.RegDto;
 import ru.egartech.Dto.UserDto;
 import ru.egartech.Repository.TaskRepository;
@@ -22,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static ru.egartech.Utils.MappingUtils.mapToUserDto;
+import static ru.egartech.Utils.MappingUtilsDto.*;
 
 @Service
 public class UserServices implements UserServicesInterface {
@@ -118,12 +117,12 @@ public class UserServices implements UserServicesInterface {
 
     public void pageUser(Model model, Authentication authentication, HttpServletRequest request) throws ClassNotFoundException {
         User user = userGetFromAuth(authentication, request);
-        model.addAttribute("user", user);
-        model.addAttribute("taskForUser", taskRepository.findByUserAcceptAndSolve(user, false));
+        model.addAttribute("user", mapToUserDto(user));
+        model.addAttribute("taskForUser", mapToListTaskDto(taskRepository.findByUserAcceptAndSolve(user, false)));
         model.addAttribute("taskSolveAndCheckNo",
-                taskRepository.findByUserSendAndSolveAndCheckChief(user, true, false));
+                mapToListTaskDto(taskRepository.findByUserSendAndSolveAndCheckChief(user, true, false)));
         model.addAttribute("taskSolveAndCheckYes",
-                taskRepository.findByUserSendAndSolveAndCheckChief(user, true, true));
+                mapToListTaskDto(taskRepository.findByUserSendAndSolveAndCheckChief(user, true, true)));
         List<Task> taskList = taskRepository.findByUserSendAndSolveAndCheckChief(user, true, true);
         int sum = 1;
         for (Task task : taskList) {

@@ -42,23 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PerfectApplicationTests {
     @Autowired
     private MockMvc mockMvc;
-    @Mock
-    private CalendarPostRepository calendarPostRepository;
-    @Mock
-    private SendDishRepository sendDishRepository;
-    @Mock
-    private DishRepository dishRepository;
-    @InjectMocks
-    private CalendarPostServices calendarPostServices;
-    SendDish sendDish = new SendDish();
-    SendDish sendDish1 = new SendDish();
-    CalendarPost calendarPost = new CalendarPost();
-    User user = new User();
-    Dish dish = new Dish();
-    Menu menu = new Menu();
-
-
-
     // Rest
     @Autowired
     private ObjectMapper objectMapper;

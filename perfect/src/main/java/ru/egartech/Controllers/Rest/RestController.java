@@ -10,14 +10,14 @@ import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.egartech.Services.UserServices.UserServices;
-import ru.egartech.Utils.MappingUtils;
+import ru.egartech.Utils.MappingUtilsDto;
 import ru.egartech.models.CalendarPost;
 import ru.egartech.models.Dish;
 import ru.egartech.models.User;
 
 import java.util.List;
 
-import static ru.egartech.Utils.MappingUtils.mapToUserDto;
+import static ru.egartech.Utils.MappingUtilsDto.mapToUserDto;
 
 @RequestMapping("/rest")
 @org.springframework.web.bind.annotation.RestController
@@ -28,7 +28,7 @@ public class RestController {
     @Autowired
     public UserServices userServices;
     @Autowired
-    public MappingUtils mappingUtils;
+    public MappingUtilsDto mappingUtilsDto;
     @Autowired
     public DishRepository dishRepository;
     @Autowired

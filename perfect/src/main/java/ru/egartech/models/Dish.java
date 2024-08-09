@@ -29,9 +29,7 @@ import java.util.List;
         strategy = InheritanceType.JOINED
 )
 public class Dish extends TimeCheck{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     @NotNull
     @Size(max = 100)
     private String name;

@@ -11,7 +11,10 @@ import ru.egartech.Services.EmailSenderService;
 import ru.egartech.Services.UserServices.UserServices;
 
 import java.util.Date;
-
+/**
+ * emailSendTask - отправляет письмо на почту за день до дедлйна задачи
+ * emailSendCalendarPost - отправляет письмо на почту за день мероприятия
+ * **/
 @Configuration
 @EnableScheduling
 public class ConfigScheduling {

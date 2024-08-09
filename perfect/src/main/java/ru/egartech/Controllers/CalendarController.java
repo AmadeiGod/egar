@@ -13,12 +13,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ru.egartech.Dto.CalendarPostDto;
+import ru.egartech.Dto.MenuDto;
 import ru.egartech.models.*;
 import ru.egartech.Repository.*;
 
 import ru.egartech.Services.CalendarPostServices;
 
+import java.text.ParseException;
 import java.util.*;
+
+import static ru.egartech.Utils.MappingUtils.mapToCalendarPost;
+import static ru.egartech.Utils.MappingUtilsDto.mapToListCalendarPostDtoForStore;
+
 /**
  * URL: /calendar <p>
  * Описание: Страница показывает все мероприятия
@@ -54,19 +61,19 @@ public class CalendarController {
 
     @GetMapping("/calendar")
     public String calendar(Model model) {
-        model.addAttribute("list", calendarPostRepository.findAll());
-        Menu menu = new Menu();
-        menu.setListDish(calendarPostServices.dishSetCount0());
-        model.addAttribute("form", menu);
+        model.addAttribute("list", mapToListCalendarPostDtoForStore(calendarPostRepository.findAll()));
+        MenuDto menuDto = new MenuDto();
+        menuDto.setListDish(calendarPostServices.dishSetCount0());
+        model.addAttribute("form", menuDto);
         return "calendar/calendar";
     }
 
     @GetMapping("/edit-calendarPost")
-    public String addPostPage(CalendarPost calendarPost, Model model) {
-        Menu menu = new Menu();
+    public String addPostPage(CalendarPostDto calendarPostDto, Model model) {
+        MenuDto menuDto = new MenuDto();
         List<Dish> list = dishRepository.findAll();
-        menu.setListDish(list);
-        model.addAttribute("form", menu);
+        menuDto.setListDish(list);
+        model.addAttribute("form", menuDto);
         return "calendar/add-calendarPost";
     }
 
@@ -74,11 +81,11 @@ public class CalendarController {
     @Transactional
     @PostMapping("/add-calendarPost")
     public String addPost(@ModelAttribute Menu form,
-                          @Valid CalendarPost calendarPost,
+                          @Valid CalendarPostDto calendarPostDto,
                           Authentication authentication,
                           HttpServletRequest request,
-                          Model model) {
-        calendarPostServices.addPost(form, calendarPost, authentication, request, model);
+                          Model model) throws ParseException {
+        calendarPostServices.addPost(form, mapToCalendarPost(calendarPostDto), authentication, request, model);
         return "redirect:calendar";
     }
 
@@ -88,7 +95,7 @@ public class CalendarController {
     public String calendarPostAddUser(@ModelAttribute Menu form,
                                       @PathVariable("id") long id,
                                       Authentication authentication,
-                                      HttpServletRequest request) {
+                                      HttpServletRequest request) throws ParseException {
         calendarPostServices.calendarPostAddUser(form, id, authentication, request);
         return "redirect:/lenta";
     }

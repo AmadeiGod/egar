@@ -26,10 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
-public class SendDish extends Dish{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class SendDish extends TimeCheck{
     @NotNull
     @Size(max = 100)
     private String name;

@@ -15,6 +15,9 @@ import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.CalendarPost;
 
 import java.util.*;
+
+import static ru.egartech.Utils.MappingUtilsDto.*;
+
 /**
  * /ivent - показывает все ивенты
  * * <p>
@@ -37,8 +40,7 @@ public class IventController {
     @Operation(summary = "Просмотр всех мероприятий", description = "USER")
     @GetMapping("/ivent")
     public String ivent(Model model) {
-        List<CalendarPost> list = calendarPostRepository.findAll();
-        model.addAttribute("list", list);
+        model.addAttribute("list", mapToListCalendarPostDtoForStore(calendarPostRepository.findAll()));
         return "ivent/ivent";
     }
 

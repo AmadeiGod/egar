@@ -56,10 +56,10 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/test", "/lenta", "/registration", "/rest/**").permitAll()
-                        .requestMatchers("/users").hasAnyAuthority("HR", "MANAGER", "CHIEF", "COOK")
-                        .requestMatchers("/edit-calendarPost", "/add-calendarPost", "/ivent", "/ivent-check").hasAnyAuthority("HR", "MANAGER")
-                        .requestMatchers("/all-menu", "/all-menu-update", "/cook-menu-addDish").hasAnyAuthority("COOK")
-                        .requestMatchers("/giveTask").hasAnyAuthority("CHIEF")
+                        .requestMatchers("/users").hasAnyAuthority("HR", "MANAGER", "CHIEF", "COOK","ADMIN")
+                        .requestMatchers("/edit-calendarPost", "/add-calendarPost", "/ivent", "/ivent-check").hasAnyAuthority("HR", "MANAGER","ADMIN")
+                        .requestMatchers("/all-menu", "/all-menu-update", "/cook-menu-addDish").hasAnyAuthority("COOK","ADMIN")
+                        .requestMatchers("/giveTask").hasAnyAuthority("CHIEF","ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
