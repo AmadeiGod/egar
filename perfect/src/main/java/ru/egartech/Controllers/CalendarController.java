@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.util.*;
 
 import static ru.egartech.Utils.MappingUtils.mapToCalendarPost;
+import static ru.egartech.Utils.MappingUtils.mapToMenu;
 import static ru.egartech.Utils.MappingUtilsDto.mapToListCalendarPostDtoForStore;
 
 /**
@@ -80,12 +81,12 @@ public class CalendarController {
     @Operation(summary = "Добавление события")
     @Transactional
     @PostMapping("/add-calendarPost")
-    public String addPost(@ModelAttribute Menu form,
+    public String addPost(@ModelAttribute MenuDto form,
                           @Valid CalendarPostDto calendarPostDto,
                           Authentication authentication,
                           HttpServletRequest request,
                           Model model) throws ParseException {
-        calendarPostServices.addPost(form, mapToCalendarPost(calendarPostDto), authentication, request, model);
+        calendarPostServices.addPost(mapToMenu(form), mapToCalendarPost(calendarPostDto), authentication, request, model);
         return "redirect:calendar";
     }
 

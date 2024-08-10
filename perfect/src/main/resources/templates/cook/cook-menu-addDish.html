@@ -5,14 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" action="#" th:action="@{/add-dish}"  th:object="${dish}">
+<form method="post" action="#" th:action="@{/add-dish}" th:object="${dish}">
 
-  <input type="text" th:field="*{name}" id="name" placeholder="Укажите название блюда"/><br/>
-    <small  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
-  <input type="text" th:field="*{count}" id="count" placeholder="Кол-во блюд"/><br/>
-    <small  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+    <input type="text" th:field="*{name}" id="name" placeholder="Укажите название блюда"/><br/>
+    <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+    <input type="text" th:field="*{count}" id="count" placeholder="Кол-во блюд"/><br/>
+    <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
 
-  <input  id="login-button" type="submit" value="Добавить"/>
+    <input id="login-button" type="submit" value="Добавить"/>
 
     <a href="/all-menu">Посмотреть все меню</a>
 </form>

@@ -7,10 +7,11 @@
 <body>
 <form th:object="${form}" method="post" action="#" th:action="@{/add-menu-to-post}">
     <tr th:each="book, itemStat : *{listDish}">
-        <td><input th:field="*{listDish[__${itemStat.index}__].name}" /></td>
-        <td><input th:field="*{listDish[__${itemStat.index}__].count}" /></td><br>
+        <td><input th:field="*{listDish[__${itemStat.index}__].name}"/></td>
+        <td><input th:field="*{listDish[__${itemStat.index}__].count}"/></td>
+        <br>
     </tr>
-    <input  id="login-button" type="submit" value="Добавить"/>
+    <input id="login-button" type="submit" value="Добавить"/>
 </form>
 </body>
 </html>

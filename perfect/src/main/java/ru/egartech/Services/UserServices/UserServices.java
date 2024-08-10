@@ -67,7 +67,7 @@ public class UserServices implements UserServicesInterface {
 
         return userRepository.save(user1);
     }
-
+    @Override
     public User userGetFromAuth(Authentication authentication, HttpServletRequest request) {
         authentication = (Authentication) request.getUserPrincipal();
         // Получаем информацию о пользователе
@@ -76,7 +76,7 @@ public class UserServices implements UserServicesInterface {
         Optional<User> user = userRepository.findByPassword(userDetails.getPassword());
         return user.get();
     }
-
+    @Override
     public List<UserDto> getListUserDto(List<User> userList) {
         List<UserDto> list = new ArrayList<>();
         for (User user : userList) {
@@ -84,7 +84,7 @@ public class UserServices implements UserServicesInterface {
         }
         return list;
     }
-
+    @Override
     public User userUpdate(User old, User fresh) {
         Date date = new Date();
         if (!(fresh.getName() == null)) {
@@ -101,21 +101,21 @@ public class UserServices implements UserServicesInterface {
         old.setDateUpdate(date);
         return userRepository.save(old);
     }
-
+    @Override
     public User userRegistration(RegDto registrationDto) {
         User user = new User();
         user.setLogin(registrationDto.getLogin());
         user.setPassword(registrationDto.getPassword());
         return save(user);
     }
-
+    @Override
     public void userSendTask(long id) {
         Optional<Task> task = taskRepository.findById(id);
         task.get().setSolve(true);
         taskRepository.save(task.get());
     }
-
-    public void pageUser(Model model, Authentication authentication, HttpServletRequest request) throws ClassNotFoundException {
+    @Override
+    public void pageUser(Model model, Authentication authentication, HttpServletRequest request) {
         User user = userGetFromAuth(authentication, request);
         model.addAttribute("user", mapToUserDto(user));
         model.addAttribute("taskForUser", mapToListTaskDto(taskRepository.findByUserAcceptAndSolve(user, false)));

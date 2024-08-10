@@ -12,7 +12,8 @@ import java.util.List;
 public class DishServices {
     @Autowired
     public DishRepository dishRepository;
-    public SendDish mapDishToSendDishForGuest(Dish dish, User user, CalendarPost calendarPost){
+
+    public SendDish mapDishToSendDishForGuest(Dish dish, User user, CalendarPost calendarPost) {
         SendDish sendDish = new SendDish();
         sendDish.setUser(user);
         sendDish.setName(dish.getName());
@@ -23,7 +24,8 @@ public class DishServices {
         sendDish.setCalendarPost(calendarPost);
         return sendDish;
     }
-    public SendDish mapDishToSendDishForCalendarPost(Dish dish, Menu menu, CalendarPost calendarPost){
+
+    public SendDish mapDishToSendDishForCalendarPost(Dish dish, Menu menu, CalendarPost calendarPost) {
         SendDish sendDish = new SendDish();
         sendDish.setCount(dish.getCount());
         sendDish.setName(dish.getName());
@@ -32,10 +34,13 @@ public class DishServices {
         sendDish.setCalendarPost(calendarPost);
         return sendDish;
     }
-    public Dish save(Dish dish){
+
+    public Dish save(Dish dish) {
         Date date = new Date();
         dish.setDateCreate(date);
         dish.setDateUpdate(date);
+        dish.setName(dish.getName());
+        dish.setCount(dish.getCount());
         return dishRepository.save(dish);
     }
 

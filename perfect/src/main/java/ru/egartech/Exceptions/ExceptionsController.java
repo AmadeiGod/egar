@@ -16,25 +16,29 @@ import java.text.ParseException;
 @ControllerAdvice
 public class ExceptionsController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseError handleException(MethodArgumentNotValidException e) {
+    public ResponseError MethodArgumentNotValidException(MethodArgumentNotValidException e) {
         System.out.println("Ошибка : " + e.getMessage());
-        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
+        return new ResponseError(e.getMessage(), HttpStatus.OK);
     }
+
     @ExceptionHandler(ParseException.class)
     public ResponseError ParseException(ParseException e) {
         System.out.println("Ошибка : " + e.getMessage());
-        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
+        return new ResponseError(e.getMessage(), HttpStatus.OK);
     }
+
     @ExceptionHandler(TemplateInputException.class)
-    public ResponseError TemplateInputException(ParseException e) {
+    public ResponseError TemplateInputException(TemplateInputException e) {
         System.out.println("Ошибка : " + e.getMessage());
-        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
+        return new ResponseError(e.getMessage(), HttpStatus.OK);
     }
+
     @ExceptionHandler(NullPointerException.class)
     public ResponseError NullPointerException(NullPointerException e) {
         System.out.println("Ошибка : " + e.getMessage());
-        return new ResponseError(e.getMessage(), HttpStatus.PAYMENT_REQUIRED);
+        return new ResponseError(e.getMessage(), HttpStatus.OK);
     }
+
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, WebRequest request, HttpStatus status) {
         String str = "Tакой страницы здесь нет.";

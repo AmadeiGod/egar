@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.egartech.Dto.MenuDto;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.MenuRepository;
@@ -24,6 +25,9 @@ import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import static ru.egartech.Utils.MappingUtils.mapToMenu;
+
 /**
  * Контроллер меню. Тут происходят основные взаимодейсвтия с блюдами(dish)**/
 @Controller
@@ -41,15 +45,15 @@ public class MenuController {
     @Operation(summary = "Страница изменения блюд на складе", description = "СООК")
     @GetMapping("/all-menu-update")
     public String allMenuUpdatePage(Model model){
-        Menu menu = new Menu();
-        menu.setListDish(dishRepository.findAll());
-        model.addAttribute("form", menu);
+        MenuDto menuDto = new MenuDto();
+        menuDto.setListDish(dishRepository.findAll());
+        model.addAttribute("form", menuDto);
         return "cook/all-menu-update";
     }
     @Operation(summary = "Изменение всего меню склада", description = "СООК")
     @PostMapping("/all-menu-update-post")
-    public String allMenuUpdatePost(@ModelAttribute Menu form){
-        menuServices.menuUpdate(form);
+    public String allMenuUpdatePost(@ModelAttribute MenuDto form){
+        menuServices.menuUpdate(mapToMenu(form));
         return "redirect:/all-menu";
     }
 }

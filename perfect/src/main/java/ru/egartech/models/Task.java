@@ -28,11 +28,11 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @NotBlank
     private String text;
     private boolean solve = false;
     private boolean checkChief = false;
-    @NotNull
+    @NotBlank
     private int scoreTask;
     private String dateDeleteString;
     private Date timeToSolve;

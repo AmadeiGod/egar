@@ -27,6 +27,7 @@ public class DishServicesTest {
         SendDish sendDish = dishServices.mapDishToSendDishForGuest(dish, user, calendarPost);
         Assertions.assertEquals(sendDish.getType(), "Гость выбрал");
     }
+
     @Test
     public void mapDishToSendDishForCalendarPost() {
         dish.setName("123");

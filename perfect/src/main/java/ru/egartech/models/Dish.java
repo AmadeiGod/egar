@@ -30,8 +30,8 @@ import java.util.List;
 )
 public class Dish extends TimeCheck{
 
-    @NotNull
-    @Size(max = 100)
+    @NotBlank
+    @Size(max = 1000)
     private String name;
     private int count;
 }

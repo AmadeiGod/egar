@@ -26,29 +26,31 @@ public class EmailSenderService {
     public void sendEmail(SimpleMailMessage email) {
         javaMailSender.send(email);
     }
+
     @Async
     public void sendEmailTask(User user) throws AddressException {
-        try{
+        try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Кончается время на выполнение задачи");
             mailMessage.setFrom(String.valueOf(new InternetAddress("daudmammaev@yandex.ru")));
             mailMessage.setText("Выполните задачу");
             javaMailSender.send(mailMessage);
-        }catch (Exception e){
+        } catch (Exception e) {
             //
         }
     }
+
     @Async
     public void sendEmailCalendarPost(User user) throws AddressException {
-        try{
+        try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Завтра мероприятие");
             mailMessage.setFrom(String.valueOf(new InternetAddress("daudmammaev@yandex.ru")));
             mailMessage.setText("Завтра мероприятие");
             javaMailSender.send(mailMessage);
-        }catch (Exception e){
+        } catch (Exception e) {
             //
         }
     }

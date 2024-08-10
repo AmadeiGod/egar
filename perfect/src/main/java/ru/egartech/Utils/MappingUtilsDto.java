@@ -6,9 +6,10 @@ import ru.egartech.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * ForStore - означает, что пользователя мы не указываем
- * **/
+ **/
 @Service
 public class MappingUtilsDto {
     public static UserDto mapToUserDto(User user) {
@@ -49,6 +50,7 @@ public class MappingUtilsDto {
         sendDishDto.setServiced(sendDish.isServiced());
         return sendDishDto;
     }
+
     public static SendDishDto mapToSendDishDtoForStore(SendDish sendDish) {
         SendDishDto sendDishDto = new SendDishDto();
         sendDishDto.setId(sendDish.getId());
@@ -67,6 +69,7 @@ public class MappingUtilsDto {
         menuDto.setDateCreate(menu.getDateCreate());
         return menuDto;
     }
+
     public static MenuDto mapToMenuDtoForStore(Menu menu) {
         MenuDto menuDto = new MenuDto();
         menuDto.setListSendDishDto(mapToListSendDishDtoForStore(menu.getListSendDish()));
@@ -127,6 +130,7 @@ public class MappingUtilsDto {
         );
         return sendDishDto;
     }
+
     public static List<SendDishDto> mapToListSendDishDtoForStore(List<SendDish> list) {
         List<SendDishDto> sendDishDto = new ArrayList<>();
         list.forEach(
@@ -134,6 +138,7 @@ public class MappingUtilsDto {
         );
         return sendDishDto;
     }
+
     public static List<CalendarPostDto> mapToListCalendarPostDto(List<CalendarPost> list) {
         List<CalendarPostDto> calendarPostDto = new ArrayList<>();
         list.forEach(
@@ -141,6 +146,7 @@ public class MappingUtilsDto {
         );
         return calendarPostDto;
     }
+
     public static List<CalendarPostDto> mapToListCalendarPostDtoForStore(List<CalendarPost> list) {
         List<CalendarPostDto> calendarPostDto = new ArrayList<>();
         list.forEach(

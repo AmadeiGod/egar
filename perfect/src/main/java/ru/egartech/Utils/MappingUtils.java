@@ -21,6 +21,7 @@ public class MappingUtils {
         calendarPost.setListForCheckUser(mapListUser(calendarPostDto.getListForCheckUserDto()));
         return calendarPost;
     }
+
     public static User mapToUser(UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
@@ -31,6 +32,7 @@ public class MappingUtils {
         user.setRole(userDto.getRole());
         user.setDateRegistration(userDto.getDateRegistration());
         user.setDateUpdate(userDto.getDateUpdate());
+        user.setCheckIvent(userDto.isCheckIvent());
         return user;
     }
 
@@ -59,6 +61,7 @@ public class MappingUtils {
         sendDish.setServiced(sendDishDto.isServiced());
         return sendDish;
     }
+
     public static Menu mapToMenu(MenuDto menuDto) {
         Menu menu = new Menu();
         menu.setListSendDish(mapToListSendDish(menuDto.getListSendDishDto()));
@@ -67,6 +70,7 @@ public class MappingUtils {
         menu.setDateCreate(menuDto.getDateCreate());
         return menu;
     }
+
     public static List<User> mapListUser(List<UserDto> userListDto) {
         List<User> list = new ArrayList<>();
         for (UserDto user : userListDto) {

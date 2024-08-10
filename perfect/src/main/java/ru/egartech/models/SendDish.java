@@ -27,7 +27,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 public class SendDish extends TimeCheck{
-    @NotNull
+    @NotBlank
     @Size(max = 100)
     private String name;
     @Min(value = 0)

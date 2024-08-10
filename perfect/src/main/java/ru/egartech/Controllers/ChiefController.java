@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.egartech.Dto.TaskDto;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Repository.UserRepository;
 import ru.egartech.Services.ChiefServices;
@@ -16,6 +17,10 @@ import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.Task;
 
 import java.text.ParseException;
+
+import static ru.egartech.Utils.MappingUtils.mapToTask;
+import static ru.egartech.Utils.MappingUtilsDto.mapListUserDto;
+
 /**
  * URL: /giveTask<p>
  * Описание: Страница для добавления задачи сотруднику
@@ -48,17 +53,17 @@ public class ChiefController {
 
     @Operation(summary = "Отправка задачи", description = "CHIEF")
     @PostMapping("/giveTaskPost")
-    public String giveTaskToUser(@Valid @ModelAttribute Task task,
+    public String giveTaskToUser(@Valid @ModelAttribute TaskDto task,
                                @Valid String operator, Authentication authentication,
                                HttpServletRequest request) throws ParseException {
-        taskServices.createTask(task, userServices.userGetFromAuth(authentication, request), operator);
+        taskServices.createTask(mapToTask(task), userServices.userGetFromAuth(authentication, request), operator);
         return "main/lenta";
     }
 
     @Operation(summary = "Страница для отправки задач", description = "CHIEF")
     @GetMapping("/giveTask")
-    public String pageGiveTask(Task task, Model model) {
-        model.addAttribute("list", userRepository.findAll());
+    public String pageGiveTask(TaskDto task, Model model) {
+        model.addAttribute("list",  mapListUserDto(userRepository.findAll()));
         return "task/givetask";
     }
 
@@ -78,8 +83,8 @@ public class ChiefController {
 
     @Operation(summary = "Отправка задачи обратно на доработку с комментарием", description = "CHIEF")
     @PostMapping("/chief-check-task-send-and-com/{id}")
-    public String chiefCheckTaskSendAndCom(@Valid @PathVariable("id") long id, Task task) {
-        chiefServices.chiefCheckTaskSendAndCom(id,task);
+    public String chiefCheckTaskSendAndCom(@Valid @PathVariable("id") long id, TaskDto task) {
+        chiefServices.chiefCheckTaskSendAndCom(id,mapToTask(task));
         return "redirect:user";
     }
 }

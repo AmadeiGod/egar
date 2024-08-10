@@ -7,7 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
@@ -20,6 +23,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+
+@MockitoSettings(strictness = Strictness.LENIENT)
+@AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
 public class CalendarPostServicesTest {
     @Mock
@@ -57,7 +64,7 @@ public class CalendarPostServicesTest {
         calendarPost.setText("123");
         calendarPost.setDateDeleteString("2024-08-08");
 
-        Mockito.when(calendarPostRepository.save(calendarPost)).thenReturn(calendarPost);
+        Mockito.when(calendarPostRepository.save(any())).thenReturn(calendarPost);
         Mockito.when(calendarPostServices.addCalendarPost(calendarPost, user, menu)).thenReturn(calendarPost);
         CalendarPost calendarPost1 = calendarPostServices.addCalendarPost(calendarPost, user, menu);
 

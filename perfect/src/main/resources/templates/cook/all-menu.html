@@ -6,8 +6,8 @@
 </head>
 <body>
 <div th:each="dish : ${list}">
-  <a style="display: inline-block" th:text="${dish.name}" ></a>
-  <p style="display: inline-block" th:text="${dish.count}"></p>
+    <a style="display: inline-block" th:text="${dish.name}"></a>
+    <p style="display: inline-block" th:text="${dish.count}"></p>
 </div>
 
 <a th:href="@{/cook-menu-addDish}"> Добавить блюдо</a>

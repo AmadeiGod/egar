@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import ru.egartech.Dto.TaskDto;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.Task;
@@ -46,7 +47,7 @@ public class UserController {
 
     @Operation(summary = "Тут информация для каждого пользователя(индивидуально)")
     @GetMapping("/user")
-    public String pageUser(Task task, Model model, Authentication authentication, HttpServletRequest request) throws ClassNotFoundException {
+    public String pageUser(TaskDto taskDto, Model model, Authentication authentication, HttpServletRequest request) throws ClassNotFoundException {
         userServices.pageUser(model, authentication, request);
         return "user/user";
     }

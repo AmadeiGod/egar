@@ -1,14 +1,17 @@
 package ru.egartech.Controllers.Rest;
 
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.egartech.Dto.CalendarPostDto;
 import ru.egartech.Dto.RegDto;
 import ru.egartech.Dto.UserDto;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.egartech.Services.DishServices;
 import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.Utils.MappingUtilsDto;
 import ru.egartech.models.CalendarPost;
@@ -17,7 +20,7 @@ import ru.egartech.models.User;
 
 import java.util.List;
 
-import static ru.egartech.Utils.MappingUtilsDto.mapToUserDto;
+import static ru.egartech.Utils.MappingUtilsDto.*;
 
 @RequestMapping("/rest")
 @org.springframework.web.bind.annotation.RestController
@@ -33,7 +36,8 @@ public class RestController {
     public DishRepository dishRepository;
     @Autowired
     public CalendarPostRepository calendarPostRepository;
-
+    @Autowired
+    public DishServices dishServices;
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> restUsers() {
         return ResponseEntity.ok(userServices.getListUserDto(userRepository.findAll()));
@@ -56,8 +60,8 @@ public class RestController {
     }
 
     @PostMapping("/add-dish")
-    public ResponseEntity<Dish> restAddDish(@Valid Dish dish) {
-        return ResponseEntity.ok(dishRepository.save(dish));
+    public ResponseEntity<Dish> restAddDish( Dish dish) {
+        return ResponseEntity.ok(dishServices.save(dish));
     }
 
     @GetMapping("/all-menu")
@@ -66,23 +70,23 @@ public class RestController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<User> restRegisterUserAccount(@Valid RegDto registrationDto) {
+    public ResponseEntity<User> restRegisterUserAccount(RegDto registrationDto) {
 
         if (userRepository.existsByLogin(registrationDto.getLogin()) || userRepository.existsByPassword(registrationDto.getPassword())) {
             return null;
         }
-        return ResponseEntity.ok(userServices.userRegistration(registrationDto));
+        return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(userServices.userRegistration(registrationDto));
     }
 
     @GetMapping("/calendar")
-    public ResponseEntity<List<CalendarPost>> restAllCalendar() {
-        return ResponseEntity.ok(calendarPostRepository.findAll());
+    public ResponseEntity<List<CalendarPostDto>> restAllCalendar() {
+        return ResponseEntity.ok(mapToListCalendarPostDto(calendarPostRepository.findAll()));
     }
 
     @GetMapping("/calendar/{id}")
-    public ResponseEntity<CalendarPost> restCalendarId(@PathVariable("id") long id) {
+    public ResponseEntity<CalendarPostDto> restCalendarId(@PathVariable("id") long id) {
         if (calendarPostRepository.findById(id).isPresent()) {
-            ResponseEntity.ok(calendarPostRepository.findById(id).get());
+            return ResponseEntity.ok(mapToCalendarPostDto(calendarPostRepository.findById(id).get()));
         }
         return null;
     }

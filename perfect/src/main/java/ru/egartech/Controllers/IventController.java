@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.egartech.Dto.CalendarPostDto;
 import ru.egartech.Dto.DtoMenuUser;
 import ru.egartech.Repository.*;
 import ru.egartech.Services.IventServices;
@@ -16,6 +17,7 @@ import ru.egartech.models.CalendarPost;
 
 import java.util.*;
 
+import static ru.egartech.Utils.MappingUtils.mapToCalendarPost;
 import static ru.egartech.Utils.MappingUtilsDto.*;
 
 /**
@@ -46,7 +48,7 @@ public class IventController {
 
     @Operation(summary = "Просмотр всех созданных мероприятий", description = "HR or MANAGER")
     @GetMapping("/ivent-check")
-    public String iventCheck(Model model, Authentication authentication, HttpServletRequest request, CalendarPost accept) {
+    public String iventCheck(Model model, Authentication authentication, HttpServletRequest request, CalendarPostDto accept) {
         List<CalendarPost> list = iventServices.iventCheckForDeleteTime(userServices.userGetFromAuth(authentication, request));
         DtoMenuUser dtoMenuUser = new DtoMenuUser();
         dtoMenuUser.setCal(list);
@@ -57,17 +59,18 @@ public class IventController {
 
     @Operation(summary = "Переход на подробности мероприятия, кто принял участие", description = "HR or MANAGER")
     @GetMapping("/ivent-check/{id}")
-    public String iventOrderPage(@PathVariable("id") long id, @ModelAttribute CalendarPost accept, Model model) {
+    public String iventOrderPage(@PathVariable("id") long id, @ModelAttribute CalendarPostDto calendarPostDto, Model model) {
         model.addAttribute("id", id);
-        model.addAttribute("calendarPost", calendarPostRepository.findById(id).get());
+        model.addAttribute("calendarPostDto", mapToCalendarPostDtoForStore(calendarPostRepository.findById(id).get()));
         return "/ivent/ivent-check-send";
     }
 
     @Operation(summary = "Отмечаем пользователей, которые есть на мероприятии", description = "MANAGER or HR")
     @Transactional
     @PostMapping("/ivent-check/{id}")
-    public String iventOrderPost(@PathVariable("id") long id, @ModelAttribute CalendarPost accept) {
-        iventServices.iventAddUserToListForCheckUserAndDeleteUserFromListVisitUser(id, accept);
+    public String iventOrderPost(@PathVariable("id") long id, @ModelAttribute CalendarPostDto calendarPostDto) {
+        System.out.println(mapToCalendarPost(calendarPostDto));
+        iventServices.iventAddUserToListForCheckUserAndDeleteUserFromListVisitUser(id, mapToCalendarPost(calendarPostDto));
         return "redirect:/ivent-check";
     }
 }

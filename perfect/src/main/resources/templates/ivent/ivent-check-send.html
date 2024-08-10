@@ -5,11 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<form th:object="${calendarPost}" id="add" th:action="@{/ivent-check/{id}(id=${id})}" method="post" >
-    <tr th:each="post, itemStat : *{listVisitUser}">
-        <p style="display: inline-block"  th:utext="*{listVisitUser[__${itemStat.index}__].login}"></p>
-        <td><input style="display: none" th:field="*{listVisitUser[__${itemStat.index}__].login}" /></td>
-        <td><input type="checkbox" th:field="*{listVisitUser[__${itemStat.index}__].checkIvent}" /></td><br>
+<form th:object="${calendarPostDto}" id="add" th:action="@{/ivent-check/{id}(id=${id})}" method="post">
+    <tr th:each="post, itemStat : *{listVisitUserDto}">
+        <p style="display: inline-block" th:utext="*{listVisitUserDto[__${itemStat.index}__].login}"></p>
+        <td><input style="display: none" th:field="*{listVisitUserDto[__${itemStat.index}__].login}"/></td>
+        <td><input type="checkbox" th:field="*{listVisitUserDto[__${itemStat.index}__].checkIvent}"/></td>
+        <br>
     </tr>
     <input type="submit" value="sss"/>
 </form>

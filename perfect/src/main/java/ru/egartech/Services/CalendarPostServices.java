@@ -54,6 +54,7 @@ public class CalendarPostServices {
         calendarPostRepository.save(calendarPost1);
         return calendarPost1;
     }
+
     public void addUserToCalendarPost(User user, CalendarPost calendarPost) throws Exception {
         try {
             if ((calendarPost.getListVisitUser().contains(user))) {
