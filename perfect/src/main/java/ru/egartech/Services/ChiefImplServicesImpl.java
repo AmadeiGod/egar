@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.egartech.Repository.TaskRepository;
-import ru.egartech.models.Task;
+import ru.egartech.Models.Task;
 
 import java.util.Optional;
 

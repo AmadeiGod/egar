@@ -1,5 +1,7 @@
 package ru.egartech.Exceptions;
 
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,37 +13,21 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.thymeleaf.exceptions.TemplateInputException;
 
+import java.io.IOException;
 import java.text.ParseException;
-
+@Slf4j
 @ControllerAdvice
 public class ExceptionsController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseError MethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        System.out.println("Ошибка : " + e.getMessage());
+        log.error(e.getMessage(), e);
         return new ResponseError(e.getMessage(), HttpStatus.OK);
     }
 
     @ExceptionHandler(ParseException.class)
     public ResponseError ParseException(ParseException e) {
-        System.out.println("Ошибка : " + e.getMessage());
+        log.error(e.getMessage(), e);
         return new ResponseError(e.getMessage(), HttpStatus.OK);
     }
 
-    @ExceptionHandler(TemplateInputException.class)
-    public ResponseError TemplateInputException(TemplateInputException e) {
-        System.out.println("Ошибка : " + e.getMessage());
-        return new ResponseError(e.getMessage(), HttpStatus.OK);
-    }
-
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseError NullPointerException(NullPointerException e) {
-        System.out.println("Ошибка : " + e.getMessage());
-        return new ResponseError(e.getMessage(), HttpStatus.OK);
-    }
-
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, WebRequest request, HttpStatus status) {
-        String str = "Tакой страницы здесь нет.";
-        return new ResponseEntity<>(str, new HttpHeaders(), status);
-    }
 }

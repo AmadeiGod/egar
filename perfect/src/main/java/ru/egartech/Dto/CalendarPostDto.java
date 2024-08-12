@@ -1,11 +1,8 @@
 package ru.egartech.Dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.egartech.models.Menu;
-import ru.egartech.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;

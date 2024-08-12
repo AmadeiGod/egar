@@ -2,7 +2,9 @@ package ru.egartech.Services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import ru.egartech.Repository.CalendarPostRepository;
@@ -10,7 +12,7 @@ import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.MenuRepository;
 import ru.egartech.Repository.SendDishRepository;
 import ru.egartech.Services.UserServices.UserServices;
-import ru.egartech.models.*;
+import ru.egartech.Models.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Slf4j
 @Service
 public class CalendarPostServicesImpl implements CalendarPostServices {
     @Autowired
@@ -36,8 +38,8 @@ public class CalendarPostServicesImpl implements CalendarPostServices {
     @Autowired
     public MenuRepository menuRepository;
 
-    public ru.egartech.models.CalendarPost addCalendarPost(ru.egartech.models.CalendarPost calendarPost, User user, Menu menu) throws ParseException {
-        ru.egartech.models.CalendarPost calendarPost1 = new ru.egartech.models.CalendarPost();
+    public CalendarPost addCalendarPost(CalendarPost calendarPost, User user, Menu menu) throws ParseException {
+        CalendarPost calendarPost1 = new CalendarPost();
         Date date = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         calendarPost1.setId(calendarPost.getId());
@@ -52,7 +54,7 @@ public class CalendarPostServicesImpl implements CalendarPostServices {
         return calendarPost1;
     }
 
-    public void addUserToCalendarPost(User user, ru.egartech.models.CalendarPost calendarPost) {
+    public void addUserToCalendarPost(User user, ru.egartech.Models.CalendarPost calendarPost) {
         try {
             if ((calendarPost.getListVisitUser().contains(user))) {
                 calendarPost.getListVisitUser().remove(user);
@@ -69,7 +71,7 @@ public class CalendarPostServicesImpl implements CalendarPostServices {
 
     }
 
-    public boolean checkMenuForDishAndCountDish(Menu form, ru.egartech.models.CalendarPost calendarPost) {
+    public boolean checkMenuForDishAndCountDish(Menu form, ru.egartech.Models.CalendarPost calendarPost) {
         for (int i = 0; i < form.getListDish().size(); i++) {
             Dish dish = form.getListDish().get(i);
             if (dish.getCount() > 3) {  // максимум у человека может быть 3 блюда одной позиции
@@ -80,7 +82,7 @@ public class CalendarPostServicesImpl implements CalendarPostServices {
         return true;
     }
 
-    public void reverseDishAndSave(Dish dish, ru.egartech.models.CalendarPost calendarPost, User user) {
+    public void reverseDishAndSave(Dish dish, ru.egartech.Models.CalendarPost calendarPost, User user) {
         SendDish sendDish = sendDishRepository.findByNameAndUserAndMenu(dish.getName(), user, calendarPost.getMenu()).get();
         SendDish sendDish1 = sendDishRepository.findByNameAndTypeAndCalendarPost(sendDish.getName(), "Заготовка", calendarPost).get();
 
@@ -102,7 +104,7 @@ public class CalendarPostServicesImpl implements CalendarPostServices {
         return true;
     }
 
-    public void addPost(Menu form, @Valid ru.egartech.models.CalendarPost calendarPost, Authentication authentication, HttpServletRequest request) throws ParseException {
+    public void addPost(Menu form, @Valid CalendarPost calendarPost, Authentication authentication, HttpServletRequest request) throws ParseException {
         User user = userServices.userGetFromAuth(authentication, request);
         Menu menu = new Menu();
         Date date = new Date();
@@ -137,12 +139,12 @@ public class CalendarPostServicesImpl implements CalendarPostServices {
         }
 
     }
-
+    @Cacheable("add-user")
     public void calendarPostAddUser(Menu form, long id, Authentication authentication, HttpServletRequest request) throws ParseException {
         CalendarPost calendarPost = calendarPostRepository.findById(id).get();
         User user = userServices.userGetFromAuth(authentication, request);
         Date date = new Date();
-
+        log.info("user has been added: {}", id);
         boolean checkListVisitUser = true;
         for (int i = 0; i < calendarPost.getListVisitUser().size(); i++) { // правило, чтобы пользователь мог заказать меню только один раз
             if (calendarPost.getListVisitUser().get(i) == user) {

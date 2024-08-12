@@ -7,10 +7,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import ru.egartech.models.Task;
-import ru.egartech.models.User;
-
-import java.util.function.Consumer;
+import ru.egartech.Models.User;
 
 @Service("emailSenderService")
 public class EmailSenderService {

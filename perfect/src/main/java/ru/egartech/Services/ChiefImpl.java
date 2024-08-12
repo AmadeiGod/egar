@@ -1,7 +1,7 @@
 package ru.egartech.Services;
 
 import jakarta.validation.Valid;
-import ru.egartech.models.Task;
+import ru.egartech.Models.Task;
 
 public interface ChiefImpl {
     public void chiefCheckTaskSendAndCom(@Valid long id, Task task);

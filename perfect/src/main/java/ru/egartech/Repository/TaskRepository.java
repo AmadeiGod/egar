@@ -2,12 +2,10 @@ package ru.egartech.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.egartech.models.Menu;
-import ru.egartech.models.Task;
-import ru.egartech.models.User;
+import ru.egartech.Models.Task;
+import ru.egartech.Models.User;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {

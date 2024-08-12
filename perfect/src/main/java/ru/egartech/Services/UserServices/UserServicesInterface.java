@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import ru.egartech.Dto.RegDto;
 import ru.egartech.Dto.UserDto;
-import ru.egartech.models.User;
+import ru.egartech.Models.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;

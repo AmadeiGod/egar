@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.UserRepository;
-import ru.egartech.models.CalendarPost;
-import ru.egartech.models.User;
+import ru.egartech.Models.CalendarPost;
+import ru.egartech.Models.User;
 
 import java.util.Date;
 import java.util.List;

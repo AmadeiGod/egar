@@ -2,7 +2,7 @@ package ru.egartech.Utils;
 
 import org.springframework.stereotype.Service;
 import ru.egartech.Dto.*;
-import ru.egartech.models.*;
+import ru.egartech.Models.*;
 
 import java.util.ArrayList;
 import java.util.List;

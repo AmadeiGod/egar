@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Services.DishServicesImpl;
-import ru.egartech.models.Dish;
+import ru.egartech.Models.Dish;
 
 @Controller
 public class DishController {

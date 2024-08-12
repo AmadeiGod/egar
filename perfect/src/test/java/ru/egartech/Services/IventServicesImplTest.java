@@ -9,8 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.UserRepository;
-import ru.egartech.models.CalendarPost;
-import ru.egartech.models.User;
+import ru.egartech.Models.CalendarPost;
+import ru.egartech.Models.User;
 
 import java.util.Optional;
 

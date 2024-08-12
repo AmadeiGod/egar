@@ -1,12 +1,7 @@
 package ru.egartech.Dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import ru.egartech.models.User;
 
 import java.util.Date;
 

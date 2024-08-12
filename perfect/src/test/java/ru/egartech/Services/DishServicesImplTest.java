@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import ru.egartech.models.*;
+import ru.egartech.Models.*;
 
 @DataJpaTest
 @EnableScheduling

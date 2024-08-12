@@ -9,8 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Repository.UserRepository;
 import ru.egartech.Services.UserServices.UserServices;
-import ru.egartech.models.Task;
-import ru.egartech.models.User;
+import ru.egartech.Models.Task;
+import ru.egartech.Models.User;
 
 import java.text.ParseException;
 import java.util.Optional;

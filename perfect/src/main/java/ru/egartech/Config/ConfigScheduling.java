@@ -1,4 +1,4 @@
-package ru.egartech.config;
+package ru.egartech.Config;
 
 import jakarta.mail.internet.AddressException;
 import org.springframework.beans.factory.annotation.Autowired;

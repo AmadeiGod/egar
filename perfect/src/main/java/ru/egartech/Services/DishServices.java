@@ -1,6 +1,6 @@
 package ru.egartech.Services;
 
-import ru.egartech.models.*;
+import ru.egartech.Models.*;
 
 public interface DishServices {
     public Dish save(Dish dish);

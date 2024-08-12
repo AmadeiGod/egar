@@ -1,7 +1,7 @@
 package ru.egartech.Dto;
 
 
-import ru.egartech.models.CalendarPost;
+import ru.egartech.Models.CalendarPost;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;

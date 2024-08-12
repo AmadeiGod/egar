@@ -1,9 +1,10 @@
 package ru.egartech.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.egartech.Repository.DishRepository;
-import ru.egartech.models.*;
+import ru.egartech.Models.*;
 
 import java.util.Date;
 
@@ -33,7 +34,7 @@ public class DishServicesImpl implements DishServices {
         sendDish.setCalendarPost(calendarPost);
         return sendDish;
     }
-
+    @Cacheable("dish")
     public Dish save(Dish dish) {
         Date date = new Date();
         dish.setDateCreate(date);

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import ru.egartech.Dto.TaskDto;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Services.UserServices.UserServices;
-import ru.egartech.models.Task;
 import ru.egartech.Repository.UserRepository;
 
 /**

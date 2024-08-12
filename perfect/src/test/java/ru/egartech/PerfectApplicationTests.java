@@ -14,9 +14,9 @@ import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.UserRepository;
 import ru.egartech.Services.DishServicesImpl;
 import ru.egartech.Services.UserServices.UserServices;
-import ru.egartech.models.CalendarPost;
-import ru.egartech.models.Dish;
-import ru.egartech.models.User;
+import ru.egartech.Models.CalendarPost;
+import ru.egartech.Models.Dish;
+import ru.egartech.Models.User;
 
 import java.util.ArrayList;
 import java.util.List;

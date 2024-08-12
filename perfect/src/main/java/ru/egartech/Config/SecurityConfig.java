@@ -1,4 +1,4 @@
-package ru.egartech.config;
+package ru.egartech.Config;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;

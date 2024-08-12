@@ -13,7 +13,7 @@ import ru.egartech.Dto.DtoMenuUser;
 import ru.egartech.Repository.*;
 import ru.egartech.Services.IventServicesImpl;
 import ru.egartech.Services.UserServices.UserServices;
-import ru.egartech.models.CalendarPost;
+import ru.egartech.Models.CalendarPost;
 
 import java.util.*;
 

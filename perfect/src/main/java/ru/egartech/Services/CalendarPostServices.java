@@ -2,10 +2,10 @@ package ru.egartech.Services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
-import ru.egartech.models.CalendarPost;
-import ru.egartech.models.Dish;
-import ru.egartech.models.Menu;
-import ru.egartech.models.User;
+import ru.egartech.Models.CalendarPost;
+import ru.egartech.Models.Dish;
+import ru.egartech.Models.Menu;
+import ru.egartech.Models.User;
 
 import java.text.ParseException;
 import java.util.List;

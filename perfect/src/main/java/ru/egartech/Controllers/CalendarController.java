@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.egartech.Dto.CalendarPostDto;
 import ru.egartech.Dto.MenuDto;
-import ru.egartech.models.*;
+import ru.egartech.Models.*;
 import ru.egartech.Repository.*;
 
 import ru.egartech.Services.CalendarPostServicesImpl;

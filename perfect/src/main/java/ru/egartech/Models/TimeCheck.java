@@ -1,4 +1,4 @@
-package ru.egartech.models;
+package ru.egartech.Models;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

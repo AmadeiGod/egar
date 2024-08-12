@@ -3,10 +3,12 @@ package ru.egartech.Services;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Repository.UserRepository;
-import ru.egartech.models.User;
+import ru.egartech.Models.Task;
+import ru.egartech.Models.User;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,9 +23,9 @@ public class TaskServicesServicesImpl implements TaskServices {
     public TaskRepository taskRepository;
     @Autowired
     public UserRepository userRepository;
-
-    public void createTask(ru.egartech.models.Task task, User user, String login) throws ParseException {
-        ru.egartech.models.Task task1 = new ru.egartech.models.Task();
+    @Cacheable("dish")
+    public void createTask(Task task, User user, String login) throws ParseException {
+        Task task1 = new Task();
         Date date = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         if (userRepository.findByLogin(login).isPresent()) {

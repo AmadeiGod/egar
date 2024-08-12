@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.SendDishRepository;
-import ru.egartech.models.*;
+import ru.egartech.Models.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;

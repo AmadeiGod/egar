@@ -1,4 +1,4 @@
-package ru.egartech.models;
+package ru.egartech.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -20,10 +20,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    @Size(min = 5, max = 100, message = "Last name should be from 5 to 100 characters")
+    @Size(min = 5, max = 100, message = "Должен быть больше 5 и меньше 100")
     private String login;
     @NotBlank
-    @Size(min = 5, max = 100, message = "Last name should be from 5 to 100 characters")
+    @Size(min = 5, max = 100, message = "Должен быть больше 5 и меньше 100")
     private String password;
     private String email;
     private String role;
