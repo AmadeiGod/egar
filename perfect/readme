@@ -161,7 +161,13 @@ URL: /ivent-check/{id}
 Доступно: MANAGER or HR
 Описание: MANAGER или HR отмечает кто пришел на мероприятие
 
+Использованные технологии и их версии
 
+* Framework Spring - 6 v.
+* Spring boot - 3.3.1 v.
+* Java - 21 v.
+* Postgresql - 42.7.3
+* Docker - 3 v.
 
 
 
