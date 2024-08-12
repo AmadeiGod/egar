@@ -19,9 +19,9 @@ import static org.mockito.Mockito.when;
 @DataJpaTest
 @EnableScheduling
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class IventServicesTest {
+public class IventServicesImplTest {
     @InjectMocks
-    public IventServices iventServices;
+    public IventServicesImpl iventServicesImpl;
     @Mock
     public CalendarPostRepository calendarPostRepository;
     @Mock
@@ -52,7 +52,7 @@ public class IventServicesTest {
         when(calendarPostRepository.findById(1L)).thenReturn(Optional.of(accept1));
 
         if (calendarPostRepository.findById(1L).isPresent()){
-            iventServices.iventAddUserToListForCheckUserAndDeleteUserFromListVisitUser(id, accept);
+            iventServicesImpl.iventAddUserToListForCheckUserAndDeleteUserFromListVisitUser(id, accept);
             Assertions.assertEquals(accept1.getListVisitUser().size(), 1);
         }
 

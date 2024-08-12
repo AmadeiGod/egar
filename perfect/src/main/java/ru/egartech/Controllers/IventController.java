@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.egartech.Dto.CalendarPostDto;
 import ru.egartech.Dto.DtoMenuUser;
 import ru.egartech.Repository.*;
-import ru.egartech.Services.IventServices;
+import ru.egartech.Services.IventServicesImpl;
 import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.CalendarPost;
 
@@ -37,7 +37,7 @@ public class IventController {
     @Autowired
     public CalendarPostRepository calendarPostRepository;
     @Autowired
-    public IventServices iventServices;
+    public IventServicesImpl iventServicesImpl;
 
     @Operation(summary = "Просмотр всех мероприятий", description = "USER")
     @GetMapping("/ivent")
@@ -49,7 +49,7 @@ public class IventController {
     @Operation(summary = "Просмотр всех созданных мероприятий", description = "HR or MANAGER")
     @GetMapping("/ivent-check")
     public String iventCheck(Model model, Authentication authentication, HttpServletRequest request, CalendarPostDto accept) {
-        List<CalendarPost> list = iventServices.iventCheckForDeleteTime(userServices.userGetFromAuth(authentication, request));
+        List<CalendarPost> list = iventServicesImpl.iventCheckForDeleteTime(userServices.userGetFromAuth(authentication, request));
         DtoMenuUser dtoMenuUser = new DtoMenuUser();
         dtoMenuUser.setCal(list);
         model.addAttribute("list", list);
@@ -70,7 +70,7 @@ public class IventController {
     @PostMapping("/ivent-check/{id}")
     public String iventOrderPost(@PathVariable("id") long id, @ModelAttribute CalendarPostDto calendarPostDto) {
         System.out.println(mapToCalendarPost(calendarPostDto));
-        iventServices.iventAddUserToListForCheckUserAndDeleteUserFromListVisitUser(id, mapToCalendarPost(calendarPostDto));
+        iventServicesImpl.iventAddUserToListForCheckUserAndDeleteUserFromListVisitUser(id, mapToCalendarPost(calendarPostDto));
         return "redirect:/ivent-check";
     }
 }

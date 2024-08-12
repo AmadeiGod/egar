@@ -1,11 +1,9 @@
 package ru.egartech;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -14,7 +12,7 @@ import ru.egartech.Dto.RegDto;
 import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.UserRepository;
-import ru.egartech.Services.DishServices;
+import ru.egartech.Services.DishServicesImpl;
 import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.models.CalendarPost;
 import ru.egartech.models.Dish;
@@ -22,7 +20,6 @@ import ru.egartech.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -41,7 +38,7 @@ public class PerfectApplicationTests {
     @MockBean
     private DishRepository dishRepository;
     @MockBean
-    private DishServices dishServices;
+    private DishServicesImpl dishServicesImpl;
     @MockBean
     private UserRepository userRepository;
     @MockBean
@@ -90,7 +87,7 @@ public class PerfectApplicationTests {
         Dish dish = new Dish();
         dish.setName("name");
 
-        when(dishServices.save(dish)).thenReturn(dish);
+        when(dishServicesImpl.save(dish)).thenReturn(dish);
 
         mockMvc.perform(
                         post("/rest/add-dish")

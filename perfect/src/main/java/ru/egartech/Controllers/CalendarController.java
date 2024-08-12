@@ -18,7 +18,7 @@ import ru.egartech.Dto.MenuDto;
 import ru.egartech.models.*;
 import ru.egartech.Repository.*;
 
-import ru.egartech.Services.CalendarPostServices;
+import ru.egartech.Services.CalendarPostServicesImpl;
 
 import java.text.ParseException;
 import java.util.*;
@@ -56,7 +56,7 @@ public class CalendarController {
     @Autowired
     public CalendarPostRepository calendarPostRepository;
     @Autowired
-    public CalendarPostServices calendarPostServices;
+    public CalendarPostServicesImpl calendarPostImpl;
     @Autowired
     public DishRepository dishRepository;
 
@@ -64,7 +64,7 @@ public class CalendarController {
     public String calendar(Model model) {
         model.addAttribute("list", mapToListCalendarPostDtoForStore(calendarPostRepository.findAll()));
         MenuDto menuDto = new MenuDto();
-        menuDto.setListDish(calendarPostServices.dishSetCount0());
+        menuDto.setListDish(calendarPostImpl.dishSetCount0());
         model.addAttribute("form", menuDto);
         return "calendar/calendar";
     }
@@ -84,9 +84,8 @@ public class CalendarController {
     public String addPost(@ModelAttribute MenuDto form,
                           @Valid CalendarPostDto calendarPostDto,
                           Authentication authentication,
-                          HttpServletRequest request,
-                          Model model) throws ParseException {
-        calendarPostServices.addPost(mapToMenu(form), mapToCalendarPost(calendarPostDto), authentication, request, model);
+                          HttpServletRequest request) throws ParseException {
+        calendarPostImpl.addPost(mapToMenu(form), mapToCalendarPost(calendarPostDto), authentication, request);
         return "redirect:calendar";
     }
 
@@ -97,7 +96,7 @@ public class CalendarController {
                                       @PathVariable("id") long id,
                                       Authentication authentication,
                                       HttpServletRequest request) throws ParseException {
-        calendarPostServices.calendarPostAddUser(form, id, authentication, request);
+        calendarPostImpl.calendarPostAddUser(form, id, authentication, request);
         return "redirect:/lenta";
     }
 

@@ -1,6 +1,5 @@
 package ru.egartech.Controllers.Rest;
 
-import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +10,9 @@ import ru.egartech.Repository.CalendarPostRepository;
 import ru.egartech.Repository.DishRepository;
 import ru.egartech.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.egartech.Services.DishServices;
+import ru.egartech.Services.DishServicesImpl;
 import ru.egartech.Services.UserServices.UserServices;
 import ru.egartech.Utils.MappingUtilsDto;
-import ru.egartech.models.CalendarPost;
 import ru.egartech.models.Dish;
 import ru.egartech.models.User;
 
@@ -37,7 +35,7 @@ public class RestController {
     @Autowired
     public CalendarPostRepository calendarPostRepository;
     @Autowired
-    public DishServices dishServices;
+    public DishServicesImpl dishServicesImpl;
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> restUsers() {
         return ResponseEntity.ok(userServices.getListUserDto(userRepository.findAll()));
@@ -47,8 +45,9 @@ public class RestController {
     public ResponseEntity<UserDto> restUserId(@PathVariable("id") long id) {
         if (userRepository.findById(id).isPresent()) {
             return ResponseEntity.ok(mapToUserDto(userRepository.findById(id).get()));
+        } else {
+            throw new NullPointerException();
         }
-        return null;
     }
 
     @RequestMapping(value = "/update/user/{id}", method = {RequestMethod.GET, RequestMethod.POST})
@@ -61,7 +60,7 @@ public class RestController {
 
     @PostMapping("/add-dish")
     public ResponseEntity<Dish> restAddDish( Dish dish) {
-        return ResponseEntity.ok(dishServices.save(dish));
+        return ResponseEntity.ok(dishServicesImpl.save(dish));
     }
 
     @GetMapping("/all-menu")

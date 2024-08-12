@@ -11,9 +11,9 @@ import ru.egartech.models.*;
 @DataJpaTest
 @EnableScheduling
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class DishServicesTest {
+public class DishServicesImplTest {
     @InjectMocks
-    private DishServices dishServices;
+    private DishServicesImpl dishServicesImpl;
     Dish dish = new Dish();
     User user = new User();
     CalendarPost calendarPost = new CalendarPost();
@@ -24,7 +24,7 @@ public class DishServicesTest {
         dish.setName("123");
         dish.setCount(123);
 
-        SendDish sendDish = dishServices.mapDishToSendDishForGuest(dish, user, calendarPost);
+        SendDish sendDish = dishServicesImpl.mapDishToSendDishForGuest(dish, user, calendarPost);
         Assertions.assertEquals(sendDish.getType(), "Гость выбрал");
     }
 
@@ -33,7 +33,7 @@ public class DishServicesTest {
         dish.setName("123");
         dish.setCount(123);
 
-        SendDish sendDish = dishServices.mapDishToSendDishForCalendarPost(dish, menu, calendarPost);
+        SendDish sendDish = dishServicesImpl.mapDishToSendDishForCalendarPost(dish, menu, calendarPost);
         Assertions.assertEquals(sendDish.getType(), "Заготовка");
     }
 }

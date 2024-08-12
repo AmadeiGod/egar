@@ -28,7 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 @MockitoSettings(strictness = Strictness.LENIENT)
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
-public class CalendarPostServicesTest {
+public class CalendarPostServicesImplTest {
     @Mock
     private CalendarPostRepository calendarPostRepository;
     @Autowired
@@ -38,7 +38,7 @@ public class CalendarPostServicesTest {
     @Mock
     private DishRepository dishRepository;
     @InjectMocks
-    private CalendarPostServices calendarPostServices;
+    private CalendarPostServicesImpl calendarPostImpl;
     CalendarPost calendarPost = new CalendarPost();
     User user = new User();
     Dish dish = new Dish();
@@ -48,11 +48,11 @@ public class CalendarPostServicesTest {
     public void addUserToCalendarPostTest() throws Exception {
 
         Mockito.when(calendarPostRepository.save(calendarPost)).thenReturn(calendarPost);
-        calendarPostServices.addUserToCalendarPost(user, calendarPost);
+        calendarPostImpl.addUserToCalendarPost(user, calendarPost);
 
         Assertions.assertEquals(calendarPost.getListVisitUser().get(0), user);
 
-        calendarPostServices.addUserToCalendarPost(user, calendarPost);
+        calendarPostImpl.addUserToCalendarPost(user, calendarPost);
         Assertions.assertEquals(calendarPost.getListVisitUser().size(), 1);
     }
 
@@ -65,8 +65,8 @@ public class CalendarPostServicesTest {
         calendarPost.setDateDeleteString("2024-08-08");
 
         Mockito.when(calendarPostRepository.save(any())).thenReturn(calendarPost);
-        Mockito.when(calendarPostServices.addCalendarPost(calendarPost, user, menu)).thenReturn(calendarPost);
-        CalendarPost calendarPost1 = calendarPostServices.addCalendarPost(calendarPost, user, menu);
+        Mockito.when(calendarPostImpl.addCalendarPost(calendarPost, user, menu)).thenReturn(calendarPost);
+        CalendarPost calendarPost1 = calendarPostImpl.addCalendarPost(calendarPost, user, menu);
 
         Assertions.assertEquals(calendarPost1.getMenu(), menu);
         Assertions.assertEquals(calendarPost1.getUser(), user);
@@ -86,7 +86,7 @@ public class CalendarPostServicesTest {
         dish.setName("123");
         menu.getListDish().add(dish);
 
-        Assertions.assertTrue(calendarPostServices.checkMenuForDishAndCountDish(menu, calendarPost));
+        Assertions.assertTrue(calendarPostImpl.checkMenuForDishAndCountDish(menu, calendarPost));
 
         menu.setListDish(new ArrayList<>());
 
@@ -100,7 +100,7 @@ public class CalendarPostServicesTest {
         dish.setName("123");
         menu.getListDish().add(dish);
 
-        Assertions.assertFalse(calendarPostServices.checkMenuForDishAndCountDish(menu, calendarPost));
+        Assertions.assertFalse(calendarPostImpl.checkMenuForDishAndCountDish(menu, calendarPost));
 
     }
 
@@ -123,7 +123,7 @@ public class CalendarPostServicesTest {
         Mockito.when(sendDishRepository.findByNameAndTypeAndCalendarPost(sendDish.get().getName(), "Заготовка", calendarPost))
                 .thenReturn(sendDish1);
 
-        calendarPostServices.reverseDishAndSave(dish, calendarPost, user);
+        calendarPostImpl.reverseDishAndSave(dish, calendarPost, user);
 
         Assertions.assertEquals(sendDish1.get().getCount(), 25);
 
@@ -131,7 +131,7 @@ public class CalendarPostServicesTest {
         sendDish.get().setCount(1);
         sendDish1.get().setCount(5);
 
-        calendarPostServices.reverseDishAndSave(dish, calendarPost, user);
+        calendarPostImpl.reverseDishAndSave(dish, calendarPost, user);
 
         Assertions.assertEquals(sendDish1.get().getCount(), -1);
     }
@@ -149,7 +149,7 @@ public class CalendarPostServicesTest {
 
         Mockito.when(dishRepository.findByName(dish.getName())).thenReturn(dish1);
 
-        Assertions.assertTrue(calendarPostServices.checkDishWarehouse(menu));
+        Assertions.assertTrue(calendarPostImpl.checkDishWarehouse(menu));
 
         menu.setListDish(new ArrayList<>());
 
@@ -158,7 +158,7 @@ public class CalendarPostServicesTest {
 
         menu.getListDish().add(dish);
 
-        Assertions.assertFalse(calendarPostServices.checkDishWarehouse(menu));
+        Assertions.assertFalse(calendarPostImpl.checkDishWarehouse(menu));
 
     }
 }

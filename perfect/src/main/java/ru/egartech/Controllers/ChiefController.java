@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.egartech.Dto.TaskDto;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.Repository.UserRepository;
-import ru.egartech.Services.ChiefServices;
-import ru.egartech.Services.TaskServices;
+import ru.egartech.Services.ChiefImplServicesImpl;
+import ru.egartech.Services.TaskServicesServicesImpl;
 import ru.egartech.Services.UserServices.UserServices;
-import ru.egartech.models.Task;
 
 import java.text.ParseException;
 
@@ -41,7 +40,7 @@ import static ru.egartech.Utils.MappingUtilsDto.mapListUserDto;
 @Controller
 public class ChiefController {
     @Autowired
-    public TaskServices taskServices;
+    public TaskServicesServicesImpl taskServicesImpl;
     @Autowired
     public UserServices userServices;
     @Autowired
@@ -49,14 +48,14 @@ public class ChiefController {
     @Autowired
     public TaskRepository taskRepository;
     @Autowired
-    public ChiefServices chiefServices;
+    public ChiefImplServicesImpl chiefServices;
 
     @Operation(summary = "Отправка задачи", description = "CHIEF")
     @PostMapping("/giveTaskPost")
     public String giveTaskToUser(@Valid @ModelAttribute TaskDto task,
                                @Valid String operator, Authentication authentication,
                                HttpServletRequest request) throws ParseException {
-        taskServices.createTask(mapToTask(task), userServices.userGetFromAuth(authentication, request), operator);
+        taskServicesImpl.createTask(mapToTask(task), userServices.userGetFromAuth(authentication, request), operator);
         return "main/lenta";
     }
 

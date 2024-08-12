@@ -29,7 +29,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    private String text;
+    public String text;
     private boolean solve = false;
     private boolean checkChief = false;
     @NotBlank

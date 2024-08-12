@@ -29,9 +29,9 @@ import java.util.List;
 public class SendDish extends TimeCheck{
     @NotBlank
     @Size(max = 100)
-    private String name;
+    public String name;
     @Min(value = 0)
-    private int count;
+    public int count;
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Menu menu;
     private String type;

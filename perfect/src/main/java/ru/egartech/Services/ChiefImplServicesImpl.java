@@ -1,18 +1,15 @@
 package ru.egartech.Services;
 
 import jakarta.validation.Valid;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.egartech.Repository.TaskRepository;
 import ru.egartech.models.Task;
 
 import java.util.Optional;
 
 @Service
-public class ChiefServices {
+public class ChiefImplServicesImpl implements ChiefImpl {
     @Autowired
     public TaskRepository taskRepository;
 

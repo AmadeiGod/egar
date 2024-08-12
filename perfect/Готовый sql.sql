@@ -11,25 +11,25 @@ INSERT INTO public.user_entity (year, date_registration, date_update, id, email,
 INSERT INTO public.user_entity (year, date_registration, date_update, id, email, login, name, password, role, surname, check_ivent) VALUES (0, null, null, 28, null, 'manager', null, '$2a$10$J3rTGPG/NeCzvLc..vREseenrUn8BYuGHEAUtjLu/v82CvoYaLLvO', 'MANAGER', null, false);
 
 
-INSERT INTO public.menu (date_create, id) VALUES ('2024-07-29 19:40:32.702000', 7);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-07-29 19:41:05.860000', 8);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-07-30 16:27:48.338000', 9);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-07-30 16:28:07.292000', 10);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-02 18:46:35.196000', 11);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-02 19:35:10.104000', 12);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-02 20:05:17.424000', 13);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-02 20:06:00.388000', 14);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-02 20:07:48.830000', 15);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-02 20:08:25.459000', 16);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-03 00:08:18.535000', 17);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-03 06:25:21.729000', 18);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-03 06:30:36.624000', 19);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-03 06:48:23.863000', 20);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-03 06:51:37.576000', 21);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-03 06:55:02.700000', 22);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-03 06:56:18.890000', 23);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-06 16:33:32.240000', 24);
-INSERT INTO public.menu (date_create, id) VALUES ('2024-08-06 17:06:57.419000', 25);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-07-29 19:40:32.702000', 7);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-07-29 19:41:05.860000', 8);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-07-30 16:27:48.338000', 9);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-07-30 16:28:07.292000', 10);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-02 18:46:35.196000', 11);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-02 19:35:10.104000', 12);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-02 20:05:17.424000', 13);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-02 20:06:00.388000', 14);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-02 20:07:48.830000', 15);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-02 20:08:25.459000', 16);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-03 00:08:18.535000', 17);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-03 06:25:21.729000', 18);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-03 06:30:36.624000', 19);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-03 06:48:23.863000', 20);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-03 06:51:37.576000', 21);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-03 06:55:02.700000', 22);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-03 06:56:18.890000', 23);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-06 16:33:32.240000', 24);
+INSERT INTO public.menuServices (date_create, id) VALUES ('2024-08-06 17:06:57.419000', 25);
 
 INSERT INTO public.calendar_post (date_create, date_delete, id, menu_id, user_id, date_delete_string, text) VALUES ('2024-08-06 17:06:57.452000', '2024-09-01 00:00:00.000000', 22, 25, 28, '2024-09-01', 'День знаний');
 

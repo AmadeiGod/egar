@@ -18,7 +18,8 @@
     <div id="div">
         <form th:object="${form}" method="post" action="#" th:action="@{/all-menu-update-post}">
             <tr th:each="task, itemStat : *{listDish}">
-                <td><input th:field="*{listDish[__${itemStat.index}__].name}" /></td>
+                <td><p  style="display: inline-block" th:utext="*{listDish[__${itemStat.index}__].name}"></p></td>
+                <td><input style="display: none" th:field="*{listDish[__${itemStat.index}__].name}" /></td>
                 <td><input th:field="*{listDish[__${itemStat.index}__].count}" /></td><br>
 
             </tr>

@@ -3,7 +3,6 @@ package ru.egartech.Services;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -15,23 +14,22 @@ import ru.egartech.models.Task;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @DataJpaTest
 @EnableScheduling
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ChiefServicesTest {
+public class ChiefImplServicesTest {
     @Mock
     private TaskRepository taskRepository;
     @InjectMocks
-    public TaskServices taskServices;
+    public TaskServicesServicesImpl taskServicesImpl;
     @InjectMocks
     public UserServices userServices;
     @Mock
     public UserRepository userRepository;
     @InjectMocks
-    public ChiefServices chiefServices;
+    public ChiefImplServicesImpl chiefServices;
     Optional<Task> task = Optional.of(new Task());
 
     @Test

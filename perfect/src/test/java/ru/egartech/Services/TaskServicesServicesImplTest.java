@@ -20,11 +20,11 @@ import static org.mockito.Mockito.when;
 @DataJpaTest
 @EnableScheduling
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class TaskServicesTest {
+public class TaskServicesServicesImplTest {
     @Mock
     private TaskRepository taskRepository;
     @InjectMocks
-    public TaskServices taskServices;
+    public TaskServicesServicesImpl taskServicesImpl;
     @InjectMocks
     public UserServices userServices;
     @Mock
@@ -46,7 +46,7 @@ public class TaskServicesTest {
 
         when(userRepository.findByLogin(login)).thenReturn(user1);
         if (userRepository.findByLogin(login).isPresent()) {
-            taskServices.createTask(task, user, login);
+            taskServicesImpl.createTask(task, user, login);
         }
     }
 }
