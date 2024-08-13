@@ -20,6 +20,7 @@ import ru.egartech.Models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -45,7 +46,7 @@ public class PerfectApplicationTests {
     private UserServices userServices;
     @MockBean
     private CalendarPostRepository calendarPostRepository;
-
+    User user = new User();
     @Test
     public void TestUsers() throws Exception {
         mockMvc.perform(
@@ -56,7 +57,11 @@ public class PerfectApplicationTests {
 
     @Test
     public void TestUser() throws Exception {
-        long id = 32;
+        long id = 32L;
+        user.setId(id);
+
+        when(userRepository.findById(any())).thenReturn(Optional.ofNullable(user));
+
         mockMvc.perform(
                         get("/rest/user/{id}", id))
                 .andDo(print())

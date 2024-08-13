@@ -56,7 +56,6 @@ public class RestController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDto> restUserId(@PathVariable("id") long id, Authentication SecurityContext) {
         if (userRepository.findById(id).isPresent()) {
-            log.info((String) SecurityContext.getDetails());
             return ResponseEntity.ok(mapToUserDto(userRepository.findById(id).get()));
         } else {
             throw new NullPointerException();

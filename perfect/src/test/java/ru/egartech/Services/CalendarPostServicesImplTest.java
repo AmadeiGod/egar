@@ -60,12 +60,11 @@ public class CalendarPostServicesImplTest {
     public void addCalendarPostTest() throws ParseException {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
         calendarPost.setText("123");
         calendarPost.setDateDeleteString("2024-08-08");
 
         Mockito.when(calendarPostRepository.save(any())).thenReturn(calendarPost);
-        Mockito.when(calendarPostImpl.addCalendarPost(calendarPost, user, menu)).thenReturn(calendarPost);
+
         CalendarPost calendarPost1 = calendarPostImpl.addCalendarPost(calendarPost, user, menu);
 
         Assertions.assertEquals(calendarPost1.getMenu(), menu);
