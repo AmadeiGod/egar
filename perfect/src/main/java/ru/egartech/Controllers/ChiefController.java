@@ -38,6 +38,7 @@ import static ru.egartech.Utils.MappingUtilsDto.mapListUserDto;
  * поэтому оставляет комментарий к задаче и возвращает ее обратно сотруднику
  * **/
 @Controller
+@CrossOrigin
 public class ChiefController {
     @Autowired
     public TaskServicesServicesImpl taskServicesImpl;

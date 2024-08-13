@@ -31,6 +31,7 @@ import static ru.egartech.Utils.MappingUtilsDto.*;
  * /ivent-check/{id}(post) - отметили, кто пришел на ивент
  **/
 @Controller
+@CrossOrigin
 public class IventController {
     @Autowired
     public UserServices userServices;

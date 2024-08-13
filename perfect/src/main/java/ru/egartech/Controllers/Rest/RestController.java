@@ -1,7 +1,11 @@
 package ru.egartech.Controllers.Rest;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.egartech.Dto.CalendarPostDto;
 import ru.egartech.Dto.RegDto;
@@ -20,6 +24,7 @@ import java.util.List;
 
 import static ru.egartech.Utils.MappingUtilsDto.*;
 
+@Slf4j
 @RequestMapping("/rest")
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
@@ -36,14 +41,22 @@ public class RestController {
     public CalendarPostRepository calendarPostRepository;
     @Autowired
     public DishServicesImpl dishServicesImpl;
+
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> restUsers() {
         return ResponseEntity.ok(userServices.getListUserDto(userRepository.findAll()));
     }
 
+    @GetMapping("/users/{limit}")
+    public ResponseEntity<List<UserDto>> restUsersCount(@PathVariable("limit") int limit) {
+        return ResponseEntity.ok(userServices.getListUserDto(userRepository.findAll(
+                PageRequest.of(1, limit)).toList()));
+    }
+
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDto> restUserId(@PathVariable("id") long id) {
+    public ResponseEntity<UserDto> restUserId(@PathVariable("id") long id, Authentication SecurityContext) {
         if (userRepository.findById(id).isPresent()) {
+            log.info((String) SecurityContext.getDetails());
             return ResponseEntity.ok(mapToUserDto(userRepository.findById(id).get()));
         } else {
             throw new NullPointerException();
@@ -59,7 +72,7 @@ public class RestController {
     }
 
     @PostMapping("/add-dish")
-    public ResponseEntity<Dish> restAddDish( Dish dish) {
+    public ResponseEntity<Dish> restAddDish(Dish dish) {
         return ResponseEntity.ok(dishServicesImpl.save(dish));
     }
 

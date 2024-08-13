@@ -7,6 +7,9 @@ import org.springframework.security.web.context.DelegatingSecurityContextReposit
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ru.egartech.Services.UserServices.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +21,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.Arrays;
 
 
 @EnableWebSecurity
@@ -74,7 +79,6 @@ public class SecurityConfig {
                         .logoutUrl("/user/logout")
                         .logoutSuccessUrl("/news")
                 );
-
         return http.build();
     }
 
@@ -90,4 +94,5 @@ public class SecurityConfig {
                 new HttpSessionSecurityContextRepository()
         );
     }
+
 }
