@@ -15,9 +15,21 @@
 	<description>perfect project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+
+		<spring.web>6.1.8</spring.web>
+		<spring-boot-starter-web>3.3.0</spring-boot-starter-web>
+		<vavr>0.9.2</vavr>
+		<junit-jupiter>5.6.2</junit-jupiter>
+		<springdoc-openapi-starter-webmvc-ui>2.0.2</springdoc-openapi-starter-webmvc-ui>
+		<spring-boot-starter-cache>3.3.0</spring-boot-starter-cache>
+		<maven-javadoc-plugin>3.0.0</maven-javadoc-plugin>
 	</properties>
 	<dependencies>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.web}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -29,7 +41,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>3.3.0</version>
+			<version>${spring-boot-starter-web}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -76,23 +88,23 @@
 		<dependency>
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
-			<version>0.9.2</version>
+			<version>${vavr}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.6.2</version>
+			<version>${junit-jupiter}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.0.2</version>
+			<version>${springdoc-openapi-starter-webmvc-ui}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
-			<version>3.3.0</version>
+			<version>${spring-boot-starter-cache}</version>
 		</dependency>
 	</dependencies>
 
@@ -105,7 +117,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>${maven-javadoc-plugin}</version>
 				<configuration>
 					<source>1.8</source>
 				</configuration>
